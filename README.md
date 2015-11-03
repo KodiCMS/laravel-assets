@@ -1,1 +1,1 @@
-# laravel-assets
+# Laravel Assets
