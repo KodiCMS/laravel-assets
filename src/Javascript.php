@@ -3,7 +3,7 @@ namespace KodiCMS\Assets;
 
 use KodiCMS\Assets\Contracts\AssetElementInterface;
 
-class JavaScript implements AssetElementInterface
+class Javascript implements AssetElementInterface
 {
 
     /**

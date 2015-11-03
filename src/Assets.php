@@ -141,7 +141,7 @@ class Assets
      */
     public function addJs($handle = false, $src = null, $dependency = null, $footer = false)
     {
-        return $this->js[$handle] = new JavaScript($handle, $src, $dependency, $footer);
+        return $this->js[$handle] = new Javascript($handle, $src, $dependency, $footer);
     }
 
 

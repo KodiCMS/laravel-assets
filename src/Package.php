@@ -73,7 +73,7 @@ class Package extends Collection
             $handle = $this->getName();
         }
 
-        return $this->put($handle . '.js', new JavaScript($handle, $src, $dependency, $footer));
+        return $this->put($handle . '.js', new Javascript($handle, $src, $dependency, $footer));
     }
 
 
@@ -96,7 +96,7 @@ class Package extends Collection
     public function getJs($includeDependency = false)
     {
         return $this->filter(function ($item) use ($includeDependency) {
-            return $item instanceof JavaScript;
+            return $item instanceof Javascript;
         });
     }
 
