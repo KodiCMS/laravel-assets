@@ -14,7 +14,9 @@ class PackageManager extends Collection
     public function add($package)
     {
         if (( ! $package instanceof Package )) {
-            $package = new Package($package);
+            $name = $package;
+            $package = new Package;
+            $package->setName($name);
         }
 
         $this->put($package->getName(), $package);

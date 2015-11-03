@@ -2,6 +2,7 @@
 namespace KodiCMS\Assets;
 
 use Illuminate\Support\Collection;
+use KodiCMS\Assets\Exceptions\PackageException;
 
 class Package extends Collection
 {
@@ -15,7 +16,7 @@ class Package extends Collection
     /**
      * @param string $name
      */
-    public function __construct($name)
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -23,9 +24,14 @@ class Package extends Collection
 
     /**
      * @return string
+     * @throws \Exception
      */
     public function getName()
     {
+        if (empty( $this->name )) {
+            throw new PackageException('Package name not set');
+        }
+
         return $this->name;
     }
 
@@ -49,10 +55,7 @@ class Package extends Collection
             $attributes['media'] = 'all';
         }
 
-        return $this->put(
-            $handle . '.css',
-            new Css($handle, $src, $dependency, $attributes)
-        );
+        return $this->put($handle . '.css', new Css($handle, $src, $dependency, $attributes));
     }
 
 
@@ -70,10 +73,7 @@ class Package extends Collection
             $handle = $this->getName();
         }
 
-        return $this->put(
-            $handle . '.js',
-            new JavaScript($handle, $src, $dependency, $footer)
-        );
+        return $this->put($handle . '.js', new JavaScript($handle, $src, $dependency, $footer));
     }
 
 
@@ -90,13 +90,16 @@ class Package extends Collection
 
     /**
      * @param bool $includeDependency
+     *
      * @return static
      */
     public function getJs($includeDependency = false)
     {
-        return $this->filter(function ($item) use($includeDependency) {
-            $item->includeDependency($includeDependency);
+        $filter = $this->filter(function ($item) use ($includeDependency) {
+            return $item instanceof JavaScript;
+        });
 
+        return $this->filter(function ($item) use ($includeDependency) {
             return $item instanceof JavaScript;
         });
     }

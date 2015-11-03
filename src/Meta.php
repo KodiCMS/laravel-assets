@@ -314,7 +314,7 @@ class Meta
     /**
      * @return string
      */
-    public function build()
+    public function render()
     {
         return app('assets')->allGroup('meta') . PHP_EOL . app('assets')->render();
     }

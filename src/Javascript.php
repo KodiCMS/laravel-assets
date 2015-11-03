@@ -112,7 +112,7 @@ class JavaScript implements AssetElementInterface
 
     public function includeDependency()
     {
-        Assets::loadPackage($this->getDependency());
+        app('assets')->loadPackage($this->getDependency());
     }
 
 

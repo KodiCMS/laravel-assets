@@ -43,7 +43,7 @@ class Assets
 
         foreach ($names as $name) {
             if ( ! array_key_exists($name, $this->packages)) {
-                if ( ! is_null($package = PackageManager::load($name))) {
+                if ( ! is_null($package = app('assets.packages')->load($name))) {
                     $this->packages[$name] = $package;
                 }
             }
@@ -96,17 +96,17 @@ class Assets
      */
     public function getCssList()
     {
+        $this->loadPackageCss();
+
         if (empty( $this->css )) {
             return '';
         }
-
-        $this->loadPackageCss();
 
         foreach ($this->sort($this->css) as $handle => $data) {
             $assets[] = $this->getCss($handle);
         }
 
-        return implode(PHP_EOL, $assets);
+        return implode('', $assets);
     }
 
 
@@ -167,18 +167,18 @@ class Assets
      */
     public function getJsList($footer = false)
     {
+        $this->loadPackageJs();
+
         if (empty( $this->js )) {
             return '';
         }
-
-        $this->loadPackageJs();
 
         /** @var JavaScript[] $assets */
         $assets = [];
 
         foreach ($this->js as $javaScript) {
             if ($javaScript->isFooter() === $footer) {
-                $assets[] = $javaScript;
+                $assets[$javaScript->getHandle()] = $javaScript;
             }
         }
 
@@ -187,10 +187,10 @@ class Assets
         }
 
         foreach ($this->sort($assets) as $javaScript) {
-            $sorted[] = $this->getJs($javaScript->getName());
+            $sorted[] = $this->getJs($javaScript->getHandle());
         }
 
-        return implode(PHP_EOL, $sorted);
+        return implode('', $sorted);
     }
 
 
@@ -272,7 +272,7 @@ class Assets
             $assets[] = $this->getGroup($group, $handle);
         }
 
-        return implode(PHP_EOL, $assets);
+        return implode('', $assets);
     }
 
 
@@ -312,7 +312,7 @@ class Assets
     {
         foreach ($this->packages as $package) {
             foreach ($package->getJs($this->includeDependency) as $javaScript) {
-                $this->js[$javaScript->getName()] = $javaScript;
+                $this->js[$javaScript->getHandle()] = $javaScript;
             }
         }
     }
@@ -322,7 +322,7 @@ class Assets
     {
         foreach ($this->packages as $package) {
             foreach ($package->getCss() as $css) {
-                $this->css[$css->getName()] = $css;
+                $this->css[$css->getHandle()] = $css;
             }
         }
     }
@@ -350,8 +350,18 @@ class Assets
                     foreach ($asset->getDependency() as $dep) {
                         // Remove dependency if doesn't exist, if its dependent on itself,
                         // or if the dependent is dependent on it
-                        if ( ! isset( $original[$dep] ) or $dep === $handle or ( isset( $assets[$dep] ) and $assets[$dep]->hasDependency($handle) )) {
-                            $assets[$dep]->removeDependency($handle);
+                        if (
+                            ! isset( $original[$dep] )
+                            or
+                            $dep === $handle
+                            or
+                            (
+                                isset( $assets[$dep] )
+                                and
+                                $assets[$dep]->hasDependency($handle)
+                            )
+                        ) {
+                            $assets[$handle]->removeDependency($dep);
                             continue;
                         }
 
@@ -361,7 +371,7 @@ class Assets
                         }
 
                         // This dependency is taken care of, remove from list
-                        $assets[$dep]->removeDependency($dep);
+                        $assets[$handle]->removeDependency($dep);
                     }
                 }
             }
