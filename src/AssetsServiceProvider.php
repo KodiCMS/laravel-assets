@@ -28,5 +28,7 @@ class AssetsServiceProvider extends ServiceProvider
         $this->app->singleton('assets.meta', function ($app) {
             return new Meta;
         });
+
+        $this->commands(PackagesListCommand::class);
     }
 }

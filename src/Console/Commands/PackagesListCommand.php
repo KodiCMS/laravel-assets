@@ -54,9 +54,9 @@ class PackagesListCommand extends Command
 
                     $i++;
                 } else {
-                    $packages[$id]['id']    = $name;
-                    $packages[$id]['files'] = $file->getSrc();
-                    $packages[$id]['deps']  = $file->getDependency();
+                    $packages[$name]['id']    = $name;
+                    $packages[$name]['files'] = $file->getSrc();
+                    $packages[$name]['deps']  = $file->getDependency();
                 }
             }
 
