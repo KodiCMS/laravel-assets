@@ -2,6 +2,7 @@
 namespace KodiCMS\Assets;
 
 use KodiCMS\Assets\Contracts\MetaDataInterface;
+use KodiCMS\Assets\Contracts\SocialMediaTagsInterface;
 
 class Meta
 {
@@ -38,16 +39,11 @@ class Meta
      */
     public function setMetaData(MetaDataInterface $data)
     {
-        return $this->setTitle(e($data->getMetaTitle()))->addMeta([
-                'name'    => 'keywords',
-                'content' => e($data->getMetaKeywords()),
-            ])->addMeta([
-                'name'    => 'description',
-                'content' => e($data->getMetaDescription()),
-            ])->addMeta([
-                'name'    => 'robots',
-                'content' => e($data->getMetaRobots()),
-            ])->addMeta(['charset' => 'utf-8'], 'meta::charset');
+        return $this->setTitle($data->getMetaTitle())
+                    ->setMetaDescription($data->getMetaDescription())
+                    ->setMetaKeywords($data->getMetaKeywords())
+                    ->setMetaRobots($data->getMetaRobots())
+                    ->addMeta(['charset' => 'utf-8'], 'meta::charset');
     }
 
 
@@ -63,6 +59,90 @@ class Meta
         ]);
     }
 
+
+    /**
+     * @param string $description
+     *
+     * @return Meta
+     */
+    public function setMetaDescription($description)
+    {
+        return $this->addMeta(['name' => 'meta_description', 'content' => e($description)]);
+    }
+
+
+    /**
+     * @param string|array $keywords
+     *
+     * @return Meta
+     */
+    public function setMetaKeywords($keywords)
+    {
+        if (is_array($keywords)) {
+            $keywords = implode(', ', $keywords);
+        }
+
+        return $this->addMeta(['name' => 'meta_keywords', 'content' => e($keywords)]);
+    }
+
+
+    /**
+     * @param string $robots
+     *
+     * @return Meta
+     */
+    public function setMetaRobots($robots)
+    {
+        return $this->addMeta(['name' => 'robots', 'content' => e($robots)]);
+    }
+
+
+    /**
+     * @param SocialMediaTagsInterface $socialTags
+     *
+     * @return Meta
+     */
+    public function addSocialTags(SocialMediaTagsInterface $socialTags)
+    {
+        return $this
+            // Open Graph data
+            ->addMeta([
+                'property' => 'og:title',
+                'content'  => $socialTags->getOgTitle(),
+                'name' => 'og:title'
+            ])->addMeta([
+                'property' => 'og:type',
+                'content'  => $socialTags->getOgType(),
+                'name' => 'og:type'
+            ])->addMeta([
+                'property' => 'og:url',
+                'content'  => $socialTags->getOgUrl(),
+                'name' => 'og:url'
+            ])->addMeta([
+                'property' => 'og:image',
+                'content'  => $socialTags->getOgImage(),
+                'name' => 'og:image'
+            ])->addMeta([
+                'property' => 'og:description',
+                'content'  => $socialTags->getOgDescription(),
+                'name' => 'og:description'
+            ])
+
+            // Schema.org markup for Google+
+            ->addMeta([
+                'itemprop' => 'name',
+                'content'  => $socialTags->getOgTitle(),
+                'name' => 'google:name'
+            ])->addMeta([
+                'itemprop' => 'description',
+                'content'  => $socialTags->getOgDescription(),
+                'name' => 'google:description'
+            ])->addMeta([
+                'itemprop' => 'image',
+                'content'  => $socialTags->getOgImage(),
+                'name' => 'google:image'
+            ]);
+    }
 
     /**
      * @param array       $attributes
