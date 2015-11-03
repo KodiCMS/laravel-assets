@@ -2,6 +2,7 @@
 namespace KodiCMS\Assets;
 
 use Illuminate\Support\ServiceProvider;
+use KodiCMS\Assets\Console\Commands\PackagesListCommand;
 
 class AssetsServiceProvider extends ServiceProvider
 {

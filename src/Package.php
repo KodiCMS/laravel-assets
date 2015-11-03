@@ -95,10 +95,6 @@ class Package extends Collection
      */
     public function getJs($includeDependency = false)
     {
-        $filter = $this->filter(function ($item) use ($includeDependency) {
-            return $item instanceof JavaScript;
-        });
-
         return $this->filter(function ($item) use ($includeDependency) {
             return $item instanceof JavaScript;
         });
