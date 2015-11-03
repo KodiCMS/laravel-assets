@@ -173,7 +173,7 @@ class Meta
      *
      * @return $this
      */
-    public function addCssElixir($filename = 'css/all.css', $dependency = null, array $attributes = null)
+    public function addCssElixir($filename = 'css/all.css', $dependency = null, array $attributes = [])
     {
         return $this->addCss('elixir.css', elixir($filename), $dependency, $attributes);
     }
@@ -187,7 +187,7 @@ class Meta
      *
      * @return $this
      */
-    public function addCss($handle, $src, $dependency = null, array $attributes = null)
+    public function addCss($handle, $src, $dependency = null, array $attributes = [])
     {
         app('assets')->addCss($handle, $src, $dependency, $attributes);
 
