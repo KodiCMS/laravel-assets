@@ -1,4 +1,5 @@
 <?php
+
 namespace KodiCMS\Assets;
 
 use KodiCMS\Assets\Contracts\MetaDataInterface;
@@ -6,12 +7,10 @@ use KodiCMS\Assets\Contracts\SocialMediaTagsInterface;
 
 class Meta
 {
-
     const META_GROUP_NAME = 'meta';
 
-
     /**
-     * Конструктор
+     * Конструктор.
      *
      * При передачи объекта страницы в нем генерируется
      *
@@ -26,11 +25,10 @@ class Meta
      */
     public function __construct(MetaDataInterface $data = null)
     {
-        if ( ! is_null($data)) {
+        if (!is_null($data)) {
             $this->setMetaData($data);
         }
     }
-
 
     /**
      * @param MetaDataInterface $data
@@ -46,7 +44,6 @@ class Meta
                     ->addMeta(['charset' => 'utf-8'], 'meta::charset');
     }
 
-
     /**
      * @param string $title
      *
@@ -59,7 +56,6 @@ class Meta
         ]);
     }
 
-
     /**
      * @param string $description
      *
@@ -69,7 +65,6 @@ class Meta
     {
         return $this->addMeta(['name' => 'meta_description', 'content' => e($description)]);
     }
-
 
     /**
      * @param string|array $keywords
@@ -85,7 +80,6 @@ class Meta
         return $this->addMeta(['name' => 'meta_keywords', 'content' => e($keywords)]);
     }
 
-
     /**
      * @param string $robots
      *
@@ -95,7 +89,6 @@ class Meta
     {
         return $this->addMeta(['name' => 'robots', 'content' => e($robots)]);
     }
-
 
     /**
      * @param SocialMediaTagsInterface $socialTags
@@ -109,38 +102,38 @@ class Meta
             ->addMeta([
                 'property' => 'og:title',
                 'content'  => $socialTags->getOgTitle(),
-                'name' => 'og:title'
+                'name'     => 'og:title',
             ])->addMeta([
                 'property' => 'og:type',
                 'content'  => $socialTags->getOgType(),
-                'name' => 'og:type'
+                'name'     => 'og:type',
             ])->addMeta([
                 'property' => 'og:url',
                 'content'  => $socialTags->getOgUrl(),
-                'name' => 'og:url'
+                'name'     => 'og:url',
             ])->addMeta([
                 'property' => 'og:image',
                 'content'  => $socialTags->getOgImage(),
-                'name' => 'og:image'
+                'name'     => 'og:image',
             ])->addMeta([
                 'property' => 'og:description',
                 'content'  => $socialTags->getOgDescription(),
-                'name' => 'og:description'
+                'name'     => 'og:description',
             ])
 
             // Schema.org markup for Google+
             ->addMeta([
                 'itemprop' => 'name',
                 'content'  => $socialTags->getOgTitle(),
-                'name' => 'google:name'
+                'name'     => 'google:name',
             ])->addMeta([
                 'itemprop' => 'description',
                 'content'  => $socialTags->getOgDescription(),
-                'name' => 'google:description'
+                'name'     => 'google:description',
             ])->addMeta([
                 'itemprop' => 'image',
                 'content'  => $socialTags->getOgImage(),
-                'name' => 'google:image'
+                'name'     => 'google:image',
             ]);
     }
 
@@ -152,10 +145,10 @@ class Meta
      */
     public function addMeta(array $attributes, $group = null)
     {
-        $meta = "<meta" . app('html')->attributes($attributes) . " />";
+        $meta = '<meta'.app('html')->attributes($attributes).' />';
 
         if (is_null($group)) {
-            if (isset( $attributes['name'] )) {
+            if (isset($attributes['name'])) {
                 $group = $attributes['name'];
             } else {
                 $group = str_random();
@@ -165,9 +158,8 @@ class Meta
         return $this->addToGroup($group, $meta);
     }
 
-
     /**
-     * @param string      $filename [default: css/all.css]
+     * @param string      $filename   [default: css/all.css]
      * @param null|string $dependency
      * @param array|null  $attributes
      *
@@ -177,7 +169,6 @@ class Meta
     {
         return $this->addCss('elixir.css', elixir($filename), $dependency, $attributes);
     }
-
 
     /**
      * @param string      $handle
@@ -194,7 +185,6 @@ class Meta
         return $this;
     }
 
-
     /**
      * @param null|string $handle
      *
@@ -207,9 +197,8 @@ class Meta
         return $this;
     }
 
-
     /**
-     * @param string      $filename [default: js/app.js]
+     * @param string      $filename   [default: js/app.js]
      * @param null|string $dependency
      * @param bool        $footer
      *
@@ -219,7 +208,6 @@ class Meta
     {
         return $this->AddJs('elixir.js', elixir($filename), $dependency, $footer);
     }
-
 
     /**
      * @param string      $handle
@@ -236,7 +224,6 @@ class Meta
         return $this;
     }
 
-
     /**
      * @param null|string $handle
      *
@@ -249,14 +236,13 @@ class Meta
         return $this;
     }
 
-
     /**
-     * Указание favicon
+     * Указание favicon.
      *
      * @param string $url
      * @param string $rel
      *
-     * @return  $this
+     * @return $this
      */
     public function setFavicon($url, $rel = 'shortcut icon')
     {
@@ -265,7 +251,6 @@ class Meta
             ':rel' => e($rel),
         ]);
     }
-
 
     /**
      * @param string|array $names
@@ -280,7 +265,6 @@ class Meta
 
         return $this;
     }
-
 
     /**
      * @param string      $handle
@@ -297,7 +281,6 @@ class Meta
         return $this;
     }
 
-
     /**
      * @param string|null $handle
      *
@@ -310,15 +293,13 @@ class Meta
         return $this;
     }
 
-
     /**
      * @return string
      */
     public function render()
     {
-        return app('assets')->allGroup('meta') . PHP_EOL . app('assets')->render();
+        return app('assets')->allGroup('meta').PHP_EOL.app('assets')->render();
     }
-
 
     /**
      * @return string

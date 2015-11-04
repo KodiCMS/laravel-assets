@@ -1,11 +1,11 @@
 <?php
+
 namespace KodiCMS\Assets\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 class PackageManager extends Facade
 {
-
     /**
      * @return string
      */

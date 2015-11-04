@@ -1,4 +1,5 @@
 <?php
+
 namespace KodiCMS\Assets;
 
 use Illuminate\Support\Collection;
@@ -6,12 +7,10 @@ use KodiCMS\Assets\Exceptions\PackageException;
 
 class Package extends Collection
 {
-
     /**
      * @var string
      */
     protected $name;
-
 
     /**
      * @param string $name
@@ -21,20 +20,19 @@ class Package extends Collection
         $this->name = $name;
     }
 
-
     /**
-     * @return string
      * @throws \Exception
+     *
+     * @return string
      */
     public function getName()
     {
-        if (empty( $this->name )) {
+        if (empty($this->name)) {
             throw new PackageException('Package name not set');
         }
 
         return $this->name;
     }
-
 
     /**
      * @param string       $handle
@@ -51,13 +49,12 @@ class Package extends Collection
         }
 
         // Set default media attribute
-        if ( ! isset( $attributes['media'] )) {
+        if (!isset($attributes['media'])) {
             $attributes['media'] = 'all';
         }
 
-        return $this->put($handle . '.css', new Css($handle, $src, $dependency, $attributes));
+        return $this->put($handle.'.css', new Css($handle, $src, $dependency, $attributes));
     }
-
 
     /**
      * @param string|bool $handle
@@ -73,9 +70,8 @@ class Package extends Collection
             $handle = $this->getName();
         }
 
-        return $this->put($handle . '.js', new Javascript($handle, $src, $dependency, $footer));
+        return $this->put($handle.'.js', new Javascript($handle, $src, $dependency, $footer));
     }
-
 
     /**
      * @return static
@@ -86,7 +82,6 @@ class Package extends Collection
             return $item instanceof Css;
         });
     }
-
 
     /**
      * @param bool $includeDependency
@@ -99,7 +94,6 @@ class Package extends Collection
             return $item instanceof Javascript;
         });
     }
-
 
     /**
      * @return string
@@ -114,7 +108,6 @@ class Package extends Collection
 
         return $string;
     }
-
 
     /**
      * @return string
