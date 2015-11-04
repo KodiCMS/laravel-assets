@@ -1,11 +1,11 @@
 <?php
+
 namespace KodiCMS\Assets;
 
 use KodiCMS\Assets\Contracts\AssetElementInterface;
 
 class Javascript implements AssetElementInterface
 {
-
     /**
      * @var string
      */
@@ -31,7 +31,6 @@ class Javascript implements AssetElementInterface
      */
     protected $footer = false;
 
-
     /**
      * Css constructor.
      *
@@ -43,17 +42,16 @@ class Javascript implements AssetElementInterface
      */
     public function __construct($handle, $src, $dependency = [], $footer = false, array $attributes = [])
     {
-        if ( ! is_array($dependency)) {
+        if (!is_array($dependency)) {
             $dependency = [$dependency];
         }
 
-        $this->handle     = $handle;
-        $this->src        = $src;
+        $this->handle = $handle;
+        $this->src = $src;
         $this->dependency = array_unique($dependency);
-        $this->footer     = (bool) $footer;
+        $this->footer = (bool) $footer;
         $this->attributes = $attributes;
     }
-
 
     /**
      * @return string
@@ -63,7 +61,6 @@ class Javascript implements AssetElementInterface
         return $this->handle;
     }
 
-
     /**
      * @return string
      */
@@ -71,7 +68,6 @@ class Javascript implements AssetElementInterface
     {
         return $this->src;
     }
-
 
     /**
      * @return array
@@ -81,7 +77,6 @@ class Javascript implements AssetElementInterface
         return $this->dependency;
     }
 
-
     /**
      * @param string|array $dependency
      *
@@ -90,12 +85,11 @@ class Javascript implements AssetElementInterface
     public function hasDependency($dependency = null)
     {
         if (is_null($dependency)) {
-            return ! empty( $this->dependency );
+            return !empty($this->dependency);
         }
 
         return in_array($dependency, $this->dependency);
     }
-
 
     /**
      * @param string $dependency
@@ -104,17 +98,15 @@ class Javascript implements AssetElementInterface
      */
     public function removeDependency($dependency)
     {
-        if (( $key = array_search($dependency, $this->dependency) ) !== false) {
-            unset( $this->dependency[$key] );
+        if (($key = array_search($dependency, $this->dependency)) !== false) {
+            unset($this->dependency[$key]);
         }
     }
-
 
     public function includeDependency()
     {
         app('assets')->loadPackage($this->getDependency());
     }
-
 
     /**
      * @return array
@@ -124,7 +116,6 @@ class Javascript implements AssetElementInterface
         return $this->attributes;
     }
 
-
     /**
      * @return array
      */
@@ -133,15 +124,13 @@ class Javascript implements AssetElementInterface
         return $this->footer;
     }
 
-
     /**
-     * @param boolean $footer
+     * @param bool $footer
      */
     public function setFooter($footer)
     {
         $this->footer = (bool) $footer;
     }
-
 
     /**
      * @return string
@@ -150,7 +139,6 @@ class Javascript implements AssetElementInterface
     {
         return app('html')->script($this->getSrc(), $this->getAttributes());
     }
-
 
     /**
      * @return string

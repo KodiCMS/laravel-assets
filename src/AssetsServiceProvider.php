@@ -1,4 +1,5 @@
 <?php
+
 namespace KodiCMS\Assets;
 
 use Illuminate\Support\ServiceProvider;
@@ -6,7 +7,6 @@ use KodiCMS\Assets\Console\Commands\PackagesListCommand;
 
 class AssetsServiceProvider extends ServiceProvider
 {
-
     /**
      * Register any application services.
      *
@@ -19,15 +19,15 @@ class AssetsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('assets', function ($app) {
-            return new Assets;
+            return new Assets();
         });
 
         $this->app->singleton('assets.packages', function ($app) {
-            return new PackageManager;
+            return new PackageManager();
         });
 
         $this->app->singleton('assets.meta', function ($app) {
-            return new Meta;
+            return new Meta();
         });
 
         $this->commands(PackagesListCommand::class);

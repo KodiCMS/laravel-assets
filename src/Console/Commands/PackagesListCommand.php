@@ -1,4 +1,5 @@
 <?php
+
 namespace KodiCMS\Assets\Console\Commands;
 
 use KodiCMS\Assets\Package;
@@ -8,7 +9,6 @@ use Symfony\Component\Console\Helper\TableSeparator;
 
 class PackagesListCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -26,7 +26,6 @@ class PackagesListCommand extends Command
         'Files',
         'Dependency',
     ];
-
 
     /**
      * Execute the console command.
@@ -47,20 +46,20 @@ class PackagesListCommand extends Command
             $files = $package->all();
 
             foreach ($files as $file) {
-                if (isset( $packages[$name] )) {
-                    $packages[$i]['id']    = '';
+                if (isset($packages[$name])) {
+                    $packages[$i]['id'] = '';
                     $packages[$i]['files'] = $file->getSrc();
-                    $packages[$i]['deps']  = $file->getDependency();
+                    $packages[$i]['deps'] = $file->getDependency();
 
                     $i++;
                 } else {
-                    $packages[$name]['id']    = $name;
+                    $packages[$name]['id'] = $name;
                     $packages[$name]['files'] = $file->getSrc();
-                    $packages[$name]['deps']  = $file->getDependency();
+                    $packages[$name]['deps'] = $file->getDependency();
                 }
             }
 
-            $packages[$i] = new TableSeparator;
+            $packages[$i] = new TableSeparator();
             $i++;
         }
 

@@ -1,11 +1,11 @@
 <?php
+
 namespace KodiCMS\Assets;
 
 use Illuminate\Support\Collection;
 
 class PackageManager extends Collection
 {
-
     /**
      * @param string|Package $package
      *
@@ -13,9 +13,9 @@ class PackageManager extends Collection
      */
     public function add($package)
     {
-        if (( ! $package instanceof Package )) {
+        if ((!$package instanceof Package)) {
             $name = $package;
-            $package = new Package;
+            $package = new Package();
             $package->setName($name);
         }
 
@@ -23,7 +23,6 @@ class PackageManager extends Collection
 
         return $package;
     }
-
 
     /**
      * @param string $name
@@ -35,7 +34,6 @@ class PackageManager extends Collection
         return $this->get($name);
     }
 
-
     /**
      * @param array|string $names
      *
@@ -43,7 +41,7 @@ class PackageManager extends Collection
      */
     public function getScripts($names)
     {
-        if ( ! is_array($names)) {
+        if (!is_array($names)) {
             $names = [$names];
         }
 
@@ -63,7 +61,6 @@ class PackageManager extends Collection
 
         return $scripts;
     }
-
 
     /**
      * @return array
