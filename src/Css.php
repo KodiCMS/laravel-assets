@@ -122,6 +122,12 @@ class Css implements AssetElementInterface
      */
     public function __toString()
     {
-        return $this->render();
+        $output = $this->render();
+
+        if ($output instanceof Htmlable) {
+            $output = $output->toHtml();
+        }
+
+        return $output;
     }
 }
