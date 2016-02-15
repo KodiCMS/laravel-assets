@@ -2,6 +2,7 @@
 
 namespace KodiCMS\Assets;
 
+use Illuminate\Contracts\Support\Htmlable;
 use KodiCMS\Assets\Contracts\AssetElementInterface;
 
 class Javascript implements AssetElementInterface
