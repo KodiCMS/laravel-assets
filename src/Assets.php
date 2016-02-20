@@ -42,8 +42,16 @@ class Assets
 
         foreach ($names as $name) {
             if (!array_key_exists($name, $this->packages)) {
+
+                /** @var Package $package */
                 if (!is_null($package = app('assets.packages')->load($name))) {
                     $this->packages[$name] = $package;
+
+                    if ($package->hasDependencies()) {
+                        foreach ($package->getDependencies() as $dependency) {
+                            $this->loadPackage($dependency);
+                        }
+                    }
                 }
             }
         }

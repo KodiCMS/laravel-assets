@@ -13,6 +13,57 @@ class Package extends Collection
     protected $name;
 
     /**
+     * @var array
+     */
+    protected $dependency = [];
+
+    /**
+     * @param array|string $packages
+     *
+     * @return $this
+     */
+    public function with($packages)
+    {
+        $packages = is_array($packages) ? $packages : func_get_args();
+
+        $this->dependency = $packages;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDependencies()
+    {
+        return array_unique($this->dependency);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDependencies()
+    {
+        return count($this->dependency) > 0;
+    }
+
+    /**
+     * @param array|string $packages
+     *
+     * @return $this
+     */
+    public function addDependency($packages)
+    {
+        $packages = is_array($packages) ? $package : func_get_args();
+
+        foreach ($packages as $package) {
+            $this->dependency[] = $package;
+        }
+
+        return $this;
+    }
+
+    /**
      * @param string $name
      */
     public function setName($name)
