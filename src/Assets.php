@@ -41,10 +41,10 @@ class Assets
         $names = is_array($names) ? $names : func_get_args();
 
         foreach ($names as $name) {
-            if (!array_key_exists($name, $this->packages)) {
+            if (! array_key_exists($name, $this->packages)) {
 
                 /** @var Package $package */
-                if (!is_null($package = app('assets.packages')->load($name))) {
+                if (! is_null($package = app('assets.packages')->load($name))) {
                     $this->packages[$name] = $package;
 
                     if ($package->hasDependencies()) {
@@ -74,7 +74,7 @@ class Assets
     public function addCss($handle = null, $src = null, $dependency = null, array $attributes = [])
     {
         // Set default media attribute
-        if (!isset($attributes['media'])) {
+        if (! isset($attributes['media'])) {
             $attributes['media'] = 'all';
         }
 
@@ -134,7 +134,7 @@ class Assets
      *
      * Gets or sets javascript assets
      *
-     * @param bool|string $handle
+     * @param bool|string   $handle
      * @param               string   Asset source
      * @param               mixed    Dependencies
      * @param               bool     Whether to show in header or footer
@@ -244,7 +244,7 @@ class Assets
      */
     public function getGroup($group, $handle)
     {
-        if (!isset($this->groups[$group]) or !isset($this->groups[$group][$handle])) {
+        if (! isset($this->groups[$group]) or ! isset($this->groups[$group][$handle])) {
             return false;
         }
 
@@ -260,7 +260,7 @@ class Assets
      */
     public function allGroup($group)
     {
-        if (!isset($this->groups[$group])) {
+        if (! isset($this->groups[$group])) {
             return '';
         }
 
@@ -292,6 +292,28 @@ class Assets
         }
 
         unset($this->groups[$group][$handle]);
+    }
+
+    /**
+     * @return $this
+     */
+    public function removePackages()
+    {
+        $this->packages = [];
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clear()
+    {
+        $this->removeCss();
+        $this->removeJs();
+        $this->removePackages();
+
+        return $this;
     }
 
     /**
@@ -335,30 +357,20 @@ class Assets
         while (count($assets) > 0) {
             foreach ($assets as $handle => $asset) {
                 // No dependencies anymore, add it to sorted
-                if (!$asset->hasDependency()) {
+                if (! $asset->hasDependency()) {
                     $sorted[$handle] = $asset;
                     unset($assets[$handle]);
                 } else {
                     foreach ($asset->getDependency() as $dep) {
                         // Remove dependency if doesn't exist, if its dependent on itself,
                         // or if the dependent is dependent on it
-                        if (
-                            !isset($original[$dep])
-                            or
-                            $dep === $handle
-                            or
-                            (
-                                isset($assets[$dep])
-                                and
-                                $assets[$dep]->hasDependency($handle)
-                            )
-                        ) {
+                        if (! isset($original[$dep]) or $dep === $handle or (isset($assets[$dep]) and $assets[$dep]->hasDependency($handle))) {
                             $assets[$handle]->removeDependency($dep);
                             continue;
                         }
 
                         // This dependency hasn't been sorted yet
-                        if (!isset($sorted[$dep])) {
+                        if (! isset($sorted[$dep])) {
                             continue;
                         }
 
