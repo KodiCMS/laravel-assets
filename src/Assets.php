@@ -3,8 +3,9 @@
 namespace KodiCMS\Assets;
 
 use KodiCMS\Assets\Contracts\AssetElementInterface;
+use KodiCMS\Assets\Contracts\AssetsInterface;
 
-class Assets
+class Assets implements AssetsInterface
 {
     /**
      * @var Package[]

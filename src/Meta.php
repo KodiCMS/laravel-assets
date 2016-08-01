@@ -3,9 +3,10 @@
 namespace KodiCMS\Assets;
 
 use KodiCMS\Assets\Contracts\MetaDataInterface;
+use KodiCMS\Assets\Contracts\MetaInterface;
 use KodiCMS\Assets\Contracts\SocialMediaTagsInterface;
 
-class Meta
+class Meta implements MetaInterface
 {
     const META_GROUP_NAME = 'meta';
 
