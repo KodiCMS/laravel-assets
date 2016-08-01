@@ -4,6 +4,9 @@ namespace KodiCMS\Assets;
 
 use Illuminate\Support\ServiceProvider;
 use KodiCMS\Assets\Console\Commands\PackagesListCommand;
+use KodiCMS\Assets\Contracts\AssetsInterface;
+use KodiCMS\Assets\Contracts\MetaInterface;
+use KodiCMS\Assets\Contracts\PackageManagerInterface;
 
 class AssetsServiceProvider extends ServiceProvider
 {
@@ -21,14 +24,17 @@ class AssetsServiceProvider extends ServiceProvider
         $this->app->singleton('assets', function ($app) {
             return new Assets();
         });
+        $this->app->alias('assets', AssetsInterface::class);
 
         $this->app->singleton('assets.packages', function ($app) {
             return new PackageManager();
         });
+        $this->app->alias('assets.packages', PackageManagerInterface::class);
 
         $this->app->singleton('assets.meta', function ($app) {
             return new Meta();
         });
+        $this->app->alias('assets.meta', MetaInterface::class);
 
         $this->commands(PackagesListCommand::class);
     }

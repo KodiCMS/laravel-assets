@@ -3,8 +3,9 @@
 namespace KodiCMS\Assets;
 
 use Illuminate\Support\Collection;
+use KodiCMS\Assets\Contracts\PackageManagerInterface;
 
-class PackageManager extends Collection
+class PackageManager extends Collection implements PackageManagerInterface
 {
     /**
      * @param string|Package $package
