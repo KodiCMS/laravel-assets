@@ -15,7 +15,7 @@ class Package extends Collection implements PackageInterface
      *
      * @return static
      */
-    public static function make($name)
+    public static function create($name)
     {
         return (new static())->setName($name);
     }
@@ -78,10 +78,14 @@ class Package extends Collection implements PackageInterface
 
     /**
      * @param string $name
+     *
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**

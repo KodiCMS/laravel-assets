@@ -34,6 +34,8 @@ interface PackageInterface extends Renderable
 
     /**
      * @param string $name
+     *
+     * @return $this
      */
     public function setName($name);
 
