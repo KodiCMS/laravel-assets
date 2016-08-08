@@ -19,7 +19,7 @@ class Html
     {
         $attributes['src'] = asset($url, $secure);
 
-        return $this->toHtmlString('<script'.$this->attributes($attributes).'></script>'.PHP_EOL);
+        return $this->toHtmlString('<script'.$this->attributes($attributes).'></script>');
     }
 
     /**
@@ -39,7 +39,7 @@ class Html
 
         $attributes['href'] = asset($url, $secure);
 
-        return $this->toHtmlString('<link'.$this->attributes($attributes).'>'.PHP_EOL);
+        return $this->toHtmlString('<link'.$this->attributes($attributes).'>');
     }
 
     /**

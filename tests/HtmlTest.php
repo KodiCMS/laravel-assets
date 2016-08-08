@@ -8,7 +8,7 @@ class HtmlTest extends PHPUnit_Framework_TestCase
         $script = (new \KodiCMS\Assets\Html())->script('test', ['attr' => 'attr_value']);
 
         static::assertInstanceOf(\Illuminate\Contracts\Support\Htmlable::class, $script);
-        static::assertEquals("<script attr=\"attr_value\" src=\"http://site.com\"></script>\r\n", $script->toHtml());
+        static::assertEquals("<script attr=\"attr_value\" src=\"http://site.com\"></script>", $script->toHtml());
     }
 
     public function testStyle()
@@ -16,7 +16,7 @@ class HtmlTest extends PHPUnit_Framework_TestCase
         $script = (new \KodiCMS\Assets\Html())->style('test', ['attr' => 'attr_value']);
 
         static::assertInstanceOf(\Illuminate\Contracts\Support\Htmlable::class, $script);
-        static::assertEquals("<link attr=\"attr_value\" media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">\r\n", $script->toHtml());
+        static::assertEquals("<link attr=\"attr_value\" media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">", $script->toHtml());
     }
 
     public function testAttributes()
