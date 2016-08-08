@@ -2,33 +2,45 @@
 
 namespace KodiCMS\Assets;
 
+use BadMethodCallException;
+use KodiCMS\Assets\Contracts\AssetsInterface;
 use KodiCMS\Assets\Contracts\MetaDataInterface;
 use KodiCMS\Assets\Contracts\MetaInterface;
 use KodiCMS\Assets\Contracts\SocialMediaTagsInterface;
 
+/**
+ * @method $this loadPackage(string|array $names)
+ * @method $this removeJs(string $handle = null)
+ * @method $this addJs(string $handle, string $src, string $dependency = null, bool $footer = false)
+ * @method $this addJsElixir(string $filename = 'js/app.js', string $dependency = null, bool $footer = false)
+ * @method $this removeCss(string $handle = null)
+ * @method $this addCss(string $handle, string $src, string $dependency = null, array $attributes = [])
+ * @method $this addCssElixir(string $filename = 'css/all.css', string $dependency = null, array $attributes = [])
+ * @method $this getGroup(string $group, string $handle)
+ */
 class Meta implements MetaInterface
 {
     const META_GROUP_NAME = 'meta';
 
     /**
-     * Конструктор.
-     *
-     * При передачи объекта страницы в нем генерируется
-     *
-     *        <title>...</title>
-     *        <meta name="keywords" content="" />
-     *        <meta name="description" content="" />
-     *        <meta name="robots" content="" />
-     *        <meta name="robots" content="" />
-     *        <meta charset="utf-8">
-     *
-     * @param MetaDataInterface $data
+     * @var AssetsInterface
      */
-    public function __construct(MetaDataInterface $data = null)
+    protected $assets;
+
+    /**
+     * @param AssetsInterface $assets
+     */
+    public function __construct(AssetsInterface $assets)
     {
-        if (!is_null($data)) {
-            $this->setMetaData($data);
-        }
+        $this->assets = $assets;
+    }
+
+    /**
+     * @return AssetsInterface
+     */
+    public function assets()
+    {
+        return $this->assets;
     }
 
     /**
@@ -48,7 +60,7 @@ class Meta implements MetaInterface
     /**
      * @param string $title
      *
-     * @return mixed
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -60,7 +72,7 @@ class Meta implements MetaInterface
     /**
      * @param string $description
      *
-     * @return Meta
+     * @return $this
      */
     public function setMetaDescription($description)
     {
@@ -70,7 +82,7 @@ class Meta implements MetaInterface
     /**
      * @param string|array $keywords
      *
-     * @return Meta
+     * @return $this
      */
     public function setMetaKeywords($keywords)
     {
@@ -84,7 +96,7 @@ class Meta implements MetaInterface
     /**
      * @param string $robots
      *
-     * @return Meta
+     * @return $this
      */
     public function setMetaRobots($robots)
     {
@@ -94,7 +106,7 @@ class Meta implements MetaInterface
     /**
      * @param SocialMediaTagsInterface $socialTags
      *
-     * @return Meta
+     * @return $this
      */
     public function addSocialTags(SocialMediaTagsInterface $socialTags)
     {
@@ -146,7 +158,7 @@ class Meta implements MetaInterface
      */
     public function addMeta(array $attributes, $group = null)
     {
-        $meta = '<meta'.app('html')->attributes($attributes).' />';
+        $meta = '<meta'.(new Html())->attributes($attributes).' />';
 
         if (is_null($group)) {
             if (isset($attributes['name'])) {
@@ -157,84 +169,6 @@ class Meta implements MetaInterface
         }
 
         return $this->addToGroup($group, $meta);
-    }
-
-    /**
-     * @param string      $filename   [default: css/all.css]
-     * @param null|string $dependency
-     * @param array|null  $attributes
-     *
-     * @return $this
-     */
-    public function addCssElixir($filename = 'css/all.css', $dependency = null, array $attributes = [])
-    {
-        return $this->addCss('elixir.css', elixir($filename), $dependency, $attributes);
-    }
-
-    /**
-     * @param string      $handle
-     * @param string      $src
-     * @param null|string $dependency
-     * @param null|array  $attributes
-     *
-     * @return $this
-     */
-    public function addCss($handle, $src, $dependency = null, array $attributes = [])
-    {
-        app('assets')->addCss($handle, $src, $dependency, $attributes);
-
-        return $this;
-    }
-
-    /**
-     * @param null|string $handle
-     *
-     * @return $this
-     */
-    public function removeCss($handle = null)
-    {
-        app('assets')->removeCss($handle);
-
-        return $this;
-    }
-
-    /**
-     * @param string      $filename   [default: js/app.js]
-     * @param null|string $dependency
-     * @param bool        $footer
-     *
-     * @return $this
-     */
-    public function addJsElixir($filename = 'js/app.js', $dependency = null, $footer = false)
-    {
-        return $this->AddJs('elixir.js', elixir($filename), $dependency, $footer);
-    }
-
-    /**
-     * @param string      $handle
-     * @param string      $src
-     * @param null|string $dependency
-     * @param bool        $footer
-     *
-     * @return $this
-     */
-    public function AddJs($handle, $src, $dependency = null, $footer = false)
-    {
-        app('assets')->addJs($handle, $src, $dependency, $footer);
-
-        return $this;
-    }
-
-    /**
-     * @param null|string $handle
-     *
-     * @return $this
-     */
-    public function removeJs($handle = null)
-    {
-        app('assets')->removeJs($handle);
-
-        return $this;
     }
 
     /**
@@ -254,20 +188,6 @@ class Meta implements MetaInterface
     }
 
     /**
-     * @param string|array $names
-     *
-     * @return $this
-     */
-    public function loadPackage($names)
-    {
-        $names = is_array($names) ? $names : func_get_args();
-
-        app('assets')->loadPackage($names);
-
-        return $this;
-    }
-
-    /**
      * @param string      $handle
      * @param string      $content
      * @param array       $params
@@ -277,7 +197,7 @@ class Meta implements MetaInterface
      */
     public function addToGroup($handle, $content, $params = [], $dependency = null)
     {
-        app('assets')->group(static::META_GROUP_NAME, $handle, strtr($content, $params), $dependency);
+        $this->assets->group(static::META_GROUP_NAME, $handle, strtr($content, $params), $dependency);
 
         return $this;
     }
@@ -289,7 +209,7 @@ class Meta implements MetaInterface
      */
     public function removeFromGroup($handle = null)
     {
-        app('assets')->removeGroup(static::META_GROUP_NAME, $handle);
+        $this->assets->removeGroup(static::META_GROUP_NAME, $handle);
 
         return $this;
     }
@@ -299,7 +219,7 @@ class Meta implements MetaInterface
      */
     public function render()
     {
-        return app('assets')->allGroup('meta').PHP_EOL.app('assets')->render();
+        return $this->assets->allGroup('meta').PHP_EOL.$this->assets->render();
     }
 
     /**
@@ -307,6 +227,27 @@ class Meta implements MetaInterface
      */
     public function __toString()
     {
-        return (string) $this->build();
+        return (string) $this->render();
+    }
+
+    /**
+     * @param string $method
+     * @param array $parameters
+     *
+     * @return $this
+     */
+    public function __call($method, $parameters)
+    {
+        if (! method_exists($this->assets, $method)) {
+            throw new BadMethodCallException("Method [$method] does not exist.");
+        }
+
+        $return = call_user_func_array([$this->assets, $method], $parameters);
+
+        if (strpos(strtolower($method), 'get') === 0) {
+            return $return;
+        }
+
+        return $this;
     }
 }

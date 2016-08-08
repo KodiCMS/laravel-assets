@@ -2,7 +2,9 @@
 
 namespace KodiCMS\Assets\Contracts;
 
-interface AssetElementInterface
+use Illuminate\Contracts\Support\Renderable;
+
+interface AssetElementInterface extends Renderable
 {
     /**
      * @return string
@@ -20,9 +22,9 @@ interface AssetElementInterface
     public function getDependency();
 
     /**
-     * @param string|array $dependency
+     * @param string|null $dependency
      *
-     * @return array
+     * @return bool
      */
     public function hasDependency($dependency = null);
 
@@ -32,6 +34,11 @@ interface AssetElementInterface
      * @return array
      */
     public function removeDependency($dependency);
+
+    /**
+     * @return array
+     */
+    public function getAttributes();
 
     /**
      * @return string

@@ -3,9 +3,10 @@
 namespace KodiCMS\Assets;
 
 use Illuminate\Support\Collection;
+use KodiCMS\Assets\Contracts\PackageInterface;
 use KodiCMS\Assets\Exceptions\PackageException;
 
-class Package extends Collection
+class Package extends Collection implements PackageInterface
 {
     /**
      * @var string
@@ -16,6 +17,16 @@ class Package extends Collection
      * @var array
      */
     protected $dependency = [];
+
+    /**
+     * Package constructor.
+     *
+     * @param array|mixed $name
+     */
+    public function __construct($name)
+    {
+        $this->setName($name);
+    }
 
     /**
      * @param array|string $packages
@@ -54,7 +65,7 @@ class Package extends Collection
      */
     public function addDependency($packages)
     {
-        $packages = is_array($packages) ? $package : func_get_args();
+        $packages = is_array($packages) ? $packages : func_get_args();
 
         foreach ($packages as $package) {
             $this->dependency[] = $package;
@@ -72,7 +83,7 @@ class Package extends Collection
     }
 
     /**
-     * @throws \Exception
+     * @throws PackageException
      *
      * @return string
      */
@@ -108,6 +119,16 @@ class Package extends Collection
     }
 
     /**
+     * @return static
+     */
+    public function getCss()
+    {
+        return $this->filter(function ($item) {
+            return $item instanceof Css;
+        });
+    }
+
+    /**
      * @param string|bool $handle
      * @param string      $src
      * @param array       $dependency
@@ -122,16 +143,6 @@ class Package extends Collection
         }
 
         return $this->put($handle.'.js', new Javascript($handle, $src, $dependency, $footer));
-    }
-
-    /**
-     * @return static
-     */
-    public function getCss()
-    {
-        return $this->filter(function ($item) {
-            return $item instanceof Css;
-        });
     }
 
     /**

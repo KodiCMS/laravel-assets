@@ -2,7 +2,8 @@
 
 namespace KodiCMS\Assets\Console\Commands;
 
-use KodiCMS\Assets\Package;
+use KodiCMS\Assets\Contracts\PackageInterface;
+use KodiCMS\Assets\Contracts\PackageManagerInterface;
 use Illuminate\Console\Command;
 use KodiCMS\Assets\Contracts\AssetElementInterface;
 use Symfony\Component\Console\Helper\TableSeparator;
@@ -30,16 +31,18 @@ class PackagesListCommand extends Command
     /**
      * Execute the console command.
      *
+     * @param PackageManagerInterface $manager
+     *
      * @return mixed
      */
-    public function fire()
+    public function fire(PackageManagerInterface $manager)
     {
         $packages = [];
 
         $i = 0;
 
-        /** @var Package[] $packagesList */
-        $packagesList = app('assets.packages')->all();
+        /** @var PackageInterface[] $packagesList */
+        $packagesList = $manager->all();
 
         foreach ($packagesList as $name => $package) {
             /** @var AssetElementInterface[] $files */

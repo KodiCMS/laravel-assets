@@ -3,21 +3,21 @@
 namespace KodiCMS\Assets;
 
 use Illuminate\Support\Collection;
+use KodiCMS\Assets\Contracts\PackageInterface;
 use KodiCMS\Assets\Contracts\PackageManagerInterface;
 
 class PackageManager extends Collection implements PackageManagerInterface
 {
     /**
-     * @param string|Package $package
+     * @param string|PackageInterface $package
      *
      * @return Package
      */
     public function add($package)
     {
-        if ((!$package instanceof Package)) {
+        if ((!$package instanceof PackageInterface)) {
             $name = $package;
-            $package = new Package();
-            $package->setName($name);
+            $package = new Package($name);
         }
 
         $this->put($package->getName(), $package);
@@ -28,7 +28,7 @@ class PackageManager extends Collection implements PackageManagerInterface
     /**
      * @param string $name
      *
-     * @return Package|null
+     * @return PackageInterface|null
      */
     public function load($name)
     {
@@ -50,7 +50,7 @@ class PackageManager extends Collection implements PackageManagerInterface
 
         foreach ($names as $name) {
 
-            /** @var Package $package */
+            /** @var PackageInterface $package */
             $package = $this->load($name);
 
             if (is_null($package)) {
