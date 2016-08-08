@@ -2,7 +2,6 @@
 
 class HtmlTest extends PHPUnit_Framework_TestCase
 {
-
     public function testScript()
     {
         $script = (new \KodiCMS\Assets\Html())->script('test', ['attr' => 'attr_value']);
@@ -22,10 +21,10 @@ class HtmlTest extends PHPUnit_Framework_TestCase
     public function testAttributes()
     {
         $string = (new \KodiCMS\Assets\Html())->attributes([
-            'attr' => 'attr_value',
-            'attr1' => 'attr_value1'
+            'attr'  => 'attr_value',
+            'attr1' => 'attr_value1',
         ]);
 
-        static::assertEquals(" attr=\"attr_value\" attr1=\"attr_value1\"", $string);
+        static::assertEquals(' attr="attr_value" attr1="attr_value1"', $string);
     }
 }

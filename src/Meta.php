@@ -232,13 +232,13 @@ class Meta implements MetaInterface
 
     /**
      * @param string $method
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return $this
      */
     public function __call($method, $parameters)
     {
-        if (! method_exists($this->assets, $method)) {
+        if (!method_exists($this->assets, $method)) {
             throw new BadMethodCallException("Method [$method] does not exist.");
         }
 

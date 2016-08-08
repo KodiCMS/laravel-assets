@@ -1,4 +1,5 @@
 <?php
+
 namespace KodiCMS\Assets\Contracts;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -53,7 +54,7 @@ interface MetaInterface extends Renderable
     public function addSocialTags(SocialMediaTagsInterface $socialTags);
 
     /**
-     * @param array $attributes
+     * @param array       $attributes
      * @param null|string $group
      *
      * @return $this
@@ -69,9 +70,9 @@ interface MetaInterface extends Renderable
     public function setFavicon($url, $rel = 'shortcut icon');
 
     /**
-     * @param string $handle
-     * @param string $content
-     * @param array $params
+     * @param string      $handle
+     * @param string      $content
+     * @param array       $params
      * @param null|string $dependency
      *
      * @return $this

@@ -1,4 +1,5 @@
 <?php
+
 namespace KodiCMS\Assets\Contracts;
 
 use KodiCMS\Assets\Package;

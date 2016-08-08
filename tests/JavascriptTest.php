@@ -20,7 +20,6 @@ class TestJavascriptAssetElement extends \KodiCMS\Assets\Javascript
 
 class JavascriptTest extends CssTest
 {
-
     /**
      * @var \KodiCMS\Assets\Javascript
      */

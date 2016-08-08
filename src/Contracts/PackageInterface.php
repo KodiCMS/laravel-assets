@@ -1,4 +1,5 @@
 <?php
+
 namespace KodiCMS\Assets\Contracts;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -7,7 +8,6 @@ use KodiCMS\Assets\Exceptions\PackageException;
 
 interface PackageInterface extends Renderable
 {
-
     /**
      * @param array|string $packages
      *
@@ -45,10 +45,10 @@ interface PackageInterface extends Renderable
     public function getName();
 
     /**
-     * @param string $handle
-     * @param string $src
+     * @param string       $handle
+     * @param string       $src
      * @param array|string $dependency
-     * @param array $attributes
+     * @param array        $attributes
      *
      * @return $this
      */
@@ -56,9 +56,9 @@ interface PackageInterface extends Renderable
 
     /**
      * @param string|bool $handle
-     * @param string $src
-     * @param array $dependency
-     * @param bool $footer
+     * @param string      $src
+     * @param array       $dependency
+     * @param bool        $footer
      *
      * @return $this
      */
@@ -75,5 +75,4 @@ interface PackageInterface extends Renderable
      * @return AssetElementInterface[]|Collection
      */
     public function getJs($includeDependency = false);
-
 }
