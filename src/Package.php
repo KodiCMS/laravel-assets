@@ -8,9 +8,7 @@ use KodiCMS\Assets\Exceptions\PackageException;
 
 class Package extends Collection implements PackageInterface
 {
-
     /**
-     *
      * @param string $name
      *
      * @return static
