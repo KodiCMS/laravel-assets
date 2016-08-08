@@ -8,6 +8,18 @@ use KodiCMS\Assets\Exceptions\PackageException;
 
 class Package extends Collection implements PackageInterface
 {
+
+    /**
+     *
+     * @param string $name
+     *
+     * @return static
+     */
+    public static function make($name)
+    {
+        return (new static())->setName($name);
+    }
+
     /**
      * @var string
      */
@@ -17,16 +29,6 @@ class Package extends Collection implements PackageInterface
      * @var array
      */
     protected $dependency = [];
-
-    /**
-     * Package constructor.
-     *
-     * @param array|mixed $name
-     */
-    public function __construct($name)
-    {
-        $this->setName($name);
-    }
 
     /**
      * @param array|string $packages

@@ -17,7 +17,7 @@ class PackageManager extends Collection implements PackageManagerInterface
     {
         if ((!$package instanceof PackageInterface)) {
             $name = $package;
-            $package = new Package($name);
+            $package = Package::make($name);
         }
 
         $this->put($package->getName(), $package);
