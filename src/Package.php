@@ -166,7 +166,7 @@ class Package extends Collection implements PackageInterface
      */
     public function render()
     {
-        return $this->map(function($item) {
+        return $this->map(function ($item) {
             return (string) $item->render();
         })->implode(PHP_EOL);
     }
