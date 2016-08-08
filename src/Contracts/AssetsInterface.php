@@ -33,10 +33,10 @@ interface AssetsInterface extends Renderable
      *
      * Gets or sets CSS assets
      *
-     * @param string $handle Asset name.
-     * @param string $src Asset source
+     * @param string       $handle     Asset name.
+     * @param string       $src        Asset source
      * @param array|string $dependency Dependencies
-     * @param array $attributes Attributes for the <link /> element
+     * @param array        $attributes Attributes for the <link /> element
      *
      * @return AssetElementInterface Setting returns asset array, getting returns asset HTML
      */
@@ -72,10 +72,10 @@ interface AssetsInterface extends Renderable
      *
      * Gets or sets javascript assets
      *
-     * @param bool|string   $handle
-     * @param string $src Asset source
+     * @param bool|string  $handle
+     * @param string       $src        Asset source
      * @param array|string $dependency Dependencies
-     * @param bool $footer Whether to show in header or footer
+     * @param bool         $footer     Whether to show in header or footer
      *
      * @return AssetElementInterface Setting returns asset array, getting returns asset HTML
      */
@@ -111,8 +111,8 @@ interface AssetsInterface extends Renderable
     /**
      * Group wrapper.
      *
-     * @param string $group Group name
-     * @param string $handle Asset name
+     * @param string $group   Group name
+     * @param string $handle  Asset name
      * @param string $content Asset content
      *
      * @return $this
@@ -122,7 +122,7 @@ interface AssetsInterface extends Renderable
     /**
      * Get a single group asset.
      *
-     * @param string $group Group name
+     * @param string $group  Group name
      * @param string $handle Asset name
      *
      * @return string|null Asset content
@@ -141,13 +141,12 @@ interface AssetsInterface extends Renderable
     /**
      * Remove a group asset, all of a groups assets, or all group assets.
      *
-     * @param string $group Group name
+     * @param string $group  Group name
      * @param string $handle Asset name
      *
      * @return mixed Empty array or void
      */
     public function removeGroup($group = null, $handle = null);
-
 
     /**
      * @return $this

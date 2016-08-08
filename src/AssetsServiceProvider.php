@@ -31,9 +31,9 @@ class AssetsServiceProvider extends ServiceProvider
         });
 
         $aliases = [
-            'assets.meta' => \KodiCMS\Assets\Contracts\MetaInterface::class,
-            'assets' => \KodiCMS\Assets\Contracts\AssetsInterface::class,
-            'assets.packages' => \KodiCMS\Assets\Contracts\PackageManagerInterface::class
+            'assets.meta'     => \KodiCMS\Assets\Contracts\MetaInterface::class,
+            'assets'          => \KodiCMS\Assets\Contracts\AssetsInterface::class,
+            'assets.packages' => \KodiCMS\Assets\Contracts\PackageManagerInterface::class,
         ];
 
         foreach ($aliases as $key => $alias) {
