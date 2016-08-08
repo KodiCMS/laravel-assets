@@ -96,14 +96,14 @@ class AssetsTest extends PHPUnit_Framework_TestCase
         $this->assets->addCss('test1', 'path/to/test1.css', ['test4', 'test5'], ['attr' => 'attr_value']);
 
         static::assertEquals(
-            "<link attr=\"attr_value\" media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">",
+            '<link attr="attr_value" media="all" type="text/css" rel="stylesheet" href="http://site.com">',
             $this->assets->getCss('test1')
         );
 
         static::assertEquals(
-           "<link attr=\"attr_value\" media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">".PHP_EOL.
-           "<link attr=\"attr_value\" media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">".PHP_EOL.
-           "<link attr=\"attr_value\" media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">",
+           '<link attr="attr_value" media="all" type="text/css" rel="stylesheet" href="http://site.com">'.PHP_EOL.
+           '<link attr="attr_value" media="all" type="text/css" rel="stylesheet" href="http://site.com">'.PHP_EOL.
+           '<link attr="attr_value" media="all" type="text/css" rel="stylesheet" href="http://site.com">',
             $this->assets->getCssList()
         );
 
@@ -111,8 +111,8 @@ class AssetsTest extends PHPUnit_Framework_TestCase
         static::assertEmpty($this->assets->getCss('test1'));
 
         static::assertEquals(
-            "<link attr=\"attr_value\" media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">".PHP_EOL.
-            "<link attr=\"attr_value\" media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">",
+            '<link attr="attr_value" media="all" type="text/css" rel="stylesheet" href="http://site.com">'.PHP_EOL.
+            '<link attr="attr_value" media="all" type="text/css" rel="stylesheet" href="http://site.com">',
             $this->assets->getCssList()
         );
 
@@ -123,7 +123,7 @@ class AssetsTest extends PHPUnit_Framework_TestCase
         static::assertEmpty($this->assets->getCss('test1'));
 
         static::assertEquals(
-            "<link attr=\"attr_value\" media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">",
+            '<link attr="attr_value" media="all" type="text/css" rel="stylesheet" href="http://site.com">',
             $this->assets->getCssList()
         );
     }
@@ -157,19 +157,19 @@ class AssetsTest extends PHPUnit_Framework_TestCase
         $this->assets->addJs('test2', 'path/to/test.css', ['test2', 'test3']);
 
         static::assertEquals(
-            "<script src=\"http://site.com\"></script>",
+            '<script src="http://site.com"></script>',
             $this->assets->getJs('test1')
         );
 
         static::assertEquals(
-            "<script src=\"http://site.com\"></script>".PHP_EOL.
-            "<script src=\"http://site.com\"></script>",
+            '<script src="http://site.com"></script>'.PHP_EOL.
+            '<script src="http://site.com"></script>',
             $this->assets->getJsList()
         );
 
         static::assertEquals(
-            "<script src=\"http://site.com\"></script>".PHP_EOL.
-            "<script src=\"http://site.com\"></script>",
+            '<script src="http://site.com"></script>'.PHP_EOL.
+            '<script src="http://site.com"></script>',
             $this->assets->getJsList(true)
         );
 
@@ -204,8 +204,8 @@ class AssetsTest extends PHPUnit_Framework_TestCase
         static::assertNull($this->assets->getGroup('group2', 'keywords'));
 
         static::assertEquals(
-            "<title>hello-world</title>".PHP_EOL.
-            "<meta keywords=\"test\" />",
+            '<title>hello-world</title>'.PHP_EOL.
+            '<meta keywords="test" />',
             $this->assets->allGroup('group1')
         );
 
