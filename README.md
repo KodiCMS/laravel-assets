@@ -1,5 +1,6 @@
 # Laravel Assets
-
+[![Build Status](https://travis-ci.org/KodiCMS/laravel-assets.svg?branch=master)](https://travis-ci.org/KodiCMS/laravel-assets)
+[![StyleCI](https://styleci.io/repos/45453063/shield)](https://styleci.io/repos/45453063)
 ## Установка
 
 Для установки пакета вы можете выполнить консольную комманду
