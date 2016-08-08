@@ -34,42 +34,4 @@ class PackageManager extends Collection implements PackageManagerInterface
     {
         return $this->get($name);
     }
-
-    /**
-     * @param array|string $names
-     *
-     * @return array
-     */
-    public function getScripts($names)
-    {
-        if (!is_array($names)) {
-            $names = [$names];
-        }
-
-        $scripts = [];
-
-        foreach ($names as $name) {
-
-            /** @var PackageInterface $package */
-            $package = $this->load($name);
-
-            if (is_null($package)) {
-                continue;
-            }
-
-            $scripts += $package->getJs()->all();
-        }
-
-        return $scripts;
-    }
-
-    /**
-     * @return array
-     */
-    public function getHTMLSelectChoice()
-    {
-        $options = $this->keys()->all();
-
-        return array_combine($options, $options);
-    }
 }

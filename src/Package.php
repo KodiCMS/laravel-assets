@@ -166,13 +166,9 @@ class Package extends Collection implements PackageInterface
      */
     public function render()
     {
-        $string = '';
-
-        foreach ($this as $asset) {
-            $string .= $asset->render();
-        }
-
-        return $string;
+        return $this->map(function($item) {
+            return (string) $item->render();
+        })->implode(PHP_EOL);
     }
 
     /**
