@@ -44,7 +44,7 @@ class PackageTest extends PHPUnit_Framework_TestCase
 
     /**
      * \KodiCMS\Assets\Package::setName
-     * \KodiCMS\Assets\Package::getName
+     * \KodiCMS\Assets\Package::getName.
      */
     public function testSetName()
     {
@@ -82,8 +82,8 @@ class PackageTest extends PHPUnit_Framework_TestCase
 
         static::assertCount(2, $scripts);
         static::assertEquals(
-            "<script src=\"http://site.com\"></script>".PHP_EOL.
-            "<script src=\"http://site.com\"></script>",
+            '<script src="http://site.com"></script>'.PHP_EOL.
+            '<script src="http://site.com"></script>',
             $scripts->render()
         );
     }
@@ -105,8 +105,8 @@ class PackageTest extends PHPUnit_Framework_TestCase
 
         static::assertCount(2, $styles);
         static::assertEquals(
-            "<link media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">".PHP_EOL.
-            "<link media=\"all\" type=\"text/css\" rel=\"stylesheet\" href=\"http://site.com\">",
+            '<link media="all" type="text/css" rel="stylesheet" href="http://site.com">'.PHP_EOL.
+            '<link media="all" type="text/css" rel="stylesheet" href="http://site.com">',
             $styles->render()
         );
     }
