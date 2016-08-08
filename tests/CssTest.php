@@ -4,7 +4,6 @@ use Mockery as m;
 
 class TestAssetElement extends \KodiCMS\Assets\AssetElement
 {
-
     /**
      * @return string
      */
@@ -22,7 +21,6 @@ class TestAssetElement extends \KodiCMS\Assets\AssetElement
 
 class CssTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var \KodiCMS\Assets\Contracts\AssetElementInterface
      */

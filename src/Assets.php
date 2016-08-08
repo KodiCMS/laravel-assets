@@ -67,10 +67,10 @@ class Assets implements AssetsInterface
         $names = is_array($names) ? $names : func_get_args();
 
         foreach ($names as $name) {
-            if (! array_key_exists($name, $this->packages)) {
+            if (!array_key_exists($name, $this->packages)) {
 
                 /** @var PackageInterface $package */
-                if (! is_null($package = $this->manager->load($name))) {
+                if (!is_null($package = $this->manager->load($name))) {
                     $this->packages[$name] = $package;
 
                     if ($package->hasDependencies()) {
@@ -108,17 +108,17 @@ class Assets implements AssetsInterface
      *
      * Gets or sets CSS assets
      *
-     * @param string $handle Asset name.
-     * @param string $src Asset source
+     * @param string       $handle     Asset name.
+     * @param string       $src        Asset source
      * @param array|string $dependency Dependencies
-     * @param array $attributes Attributes for the <link /> element
+     * @param array        $attributes Attributes for the <link /> element
      *
      * @return AssetElementInterface Setting returns asset array, getting returns asset HTML
      */
     public function addCss($handle = null, $src = null, $dependency = null, array $attributes = [])
     {
         // Set default media attribute
-        if (! isset($attributes['media'])) {
+        if (!isset($attributes['media'])) {
             $attributes['media'] = 'all';
         }
 
@@ -136,7 +136,6 @@ class Assets implements AssetsInterface
     {
         return $this->addCss($filename, elixir($filename), $dependency, $attributes);
     }
-
 
     /**
      * Get a single CSS asset.
@@ -191,10 +190,10 @@ class Assets implements AssetsInterface
      *
      * Gets or sets javascript assets
      *
-     * @param bool|string   $handle
-     * @param string $src Asset source
+     * @param bool|string  $handle
+     * @param string       $src        Asset source
      * @param array|string $dependency Dependencies
-     * @param bool $footer Whether to show in header or footer
+     * @param bool         $footer     Whether to show in header or footer
      *
      * @return AssetElementInterface Setting returns asset array, getting returns asset HTML
      */
@@ -291,8 +290,8 @@ class Assets implements AssetsInterface
     /**
      * Group wrapper.
      *
-     * @param string $group Group name
-     * @param string $handle Asset name
+     * @param string $group   Group name
+     * @param string $handle  Asset name
      * @param string $content Asset content
      *
      * @return $this
@@ -307,7 +306,7 @@ class Assets implements AssetsInterface
     /**
      * Get a single group asset.
      *
-     * @param string $group Group name
+     * @param string $group  Group name
      * @param string $handle Asset name
      *
      * @return string|null Asset content
@@ -326,7 +325,7 @@ class Assets implements AssetsInterface
      */
     public function allGroup($group)
     {
-        if (! isset($this->groups[$group])) {
+        if (!isset($this->groups[$group])) {
             return PHP_EOL;
         }
 
@@ -340,7 +339,7 @@ class Assets implements AssetsInterface
     /**
      * Remove a group asset, all of a groups assets, or all group assets.
      *
-     * @param string $group Group name
+     * @param string $group  Group name
      * @param string $handle Asset name
      *
      * @return mixed Empty array or void
@@ -414,20 +413,20 @@ class Assets implements AssetsInterface
         while (count($assets) > 0) {
             foreach ($assets as $handle => $asset) {
                 // No dependencies anymore, add it to sorted
-                if (! $asset->hasDependency()) {
+                if (!$asset->hasDependency()) {
                     $sorted[$handle] = $asset;
                     unset($assets[$handle]);
                 } else {
                     foreach ($asset->getDependency() as $dep) {
                         // Remove dependency if doesn't exist, if its dependent on itself,
                         // or if the dependent is dependent on it
-                        if (! isset($original[$dep]) or $dep === $handle or (isset($assets[$dep]) and $assets[$dep]->hasDependency($handle))) {
+                        if (!isset($original[$dep]) or $dep === $handle or (isset($assets[$dep]) and $assets[$dep]->hasDependency($handle))) {
                             $assets[$handle]->removeDependency($dep);
                             continue;
                         }
 
                         // This dependency hasn't been sorted yet
-                        if (! isset($sorted[$dep])) {
+                        if (!isset($sorted[$dep])) {
                             continue;
                         }
 

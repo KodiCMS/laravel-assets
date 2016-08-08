@@ -7,7 +7,6 @@ use KodiCMS\Assets\Contracts\AssetElementInterface;
 
 abstract class AssetElement implements AssetElementInterface
 {
-
     /**
      * @var string
      */
@@ -31,17 +30,17 @@ abstract class AssetElement implements AssetElementInterface
     /**
      * @param string $handle
      * @param string $src
-     * @param array $dependency
-     * @param array $attributes
+     * @param array  $dependency
+     * @param array  $attributes
      */
     public function __construct($handle, $src, $dependency = [], array $attributes = [])
     {
-        if (! is_array($dependency)) {
+        if (!is_array($dependency)) {
             $dependency = [$dependency];
         }
 
-        $this->handle     = $handle;
-        $this->src        = $src;
+        $this->handle = $handle;
+        $this->src = $src;
         $this->dependency = array_unique($dependency);
         $this->attributes = $attributes;
     }
@@ -78,7 +77,7 @@ abstract class AssetElement implements AssetElementInterface
     public function hasDependency($dependency = null)
     {
         if (is_null($dependency)) {
-            return ! empty($this->dependency);
+            return !empty($this->dependency);
         }
 
         return in_array($dependency, $this->dependency);

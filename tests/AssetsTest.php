@@ -2,8 +2,8 @@
 
 use Mockery as m;
 
-class Kernel extends \Illuminate\Foundation\Http\Kernel {
-
+class Kernel extends \Illuminate\Foundation\Http\Kernel
+{
 }
 
 class AssetsTest extends PHPUnit_Framework_TestCase
@@ -84,7 +84,7 @@ class AssetsTest extends PHPUnit_Framework_TestCase
         $package->shouldReceive('hasDependencies')->once()->andReturn(false);
 
         $package->shouldReceive('getCss')->times(3)->andReturn([
-            new \KodiCMS\Assets\Css('package.css', 'path/to/css', [], ['attr' => 'attr_value'])
+            new \KodiCMS\Assets\Css('package.css', 'path/to/css', [], ['attr' => 'attr_value']),
         ]);
 
         $manager->add($package);
@@ -144,7 +144,7 @@ class AssetsTest extends PHPUnit_Framework_TestCase
 
 
         $package->shouldReceive('getJs')->twice()->andReturn([
-            new \KodiCMS\Assets\Javascript('package.js', 'path/to/js', [], true)
+            new \KodiCMS\Assets\Javascript('package.js', 'path/to/js', [], true),
         ]);
 
         $manager->add($package);
@@ -210,7 +210,7 @@ class AssetsTest extends PHPUnit_Framework_TestCase
         );
 
         static::assertEquals(
-            "<meta keywords=\"test1\" />",
+            '<meta keywords="test1" />',
             $this->assets->allGroup('group3')
         );
 

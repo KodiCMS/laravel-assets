@@ -10,8 +10,8 @@ class Html
      * Generate a link to a JavaScript file.
      *
      * @param string $url
-     * @param array $attributes
-     * @param bool $secure
+     * @param array  $attributes
+     * @param bool   $secure
      *
      * @return \Illuminate\Support\HtmlString
      */
@@ -26,8 +26,8 @@ class Html
      * Generate a link to a CSS file.
      *
      * @param string $url
-     * @param array $attributes
-     * @param bool $secure
+     * @param array  $attributes
+     * @param bool   $secure
      *
      * @return \Illuminate\Support\HtmlString
      */
@@ -56,7 +56,7 @@ class Html
         foreach ((array) $attributes as $key => $value) {
             $element = $this->attributeElement($key, $value);
 
-            if (! is_null($element)) {
+            if (!is_null($element)) {
                 $html[] = $element;
             }
         }
@@ -83,13 +83,13 @@ class Html
             $key = $value;
         }
 
-        if (! is_null($value)) {
+        if (!is_null($value)) {
             return $key.'="'.e($value).'"';
         }
     }
 
     /**
-     * Transform the string to an Html serializable object
+     * Transform the string to an Html serializable object.
      *
      * @param $html
      *
