@@ -7,7 +7,6 @@ use KodiCMS\Assets\Javascript;
 
 trait Scripts
 {
-
     /**
      * @var AssetElementInterface[] Javascript assets
      */
@@ -18,10 +17,10 @@ trait Scripts
      *
      * Gets or sets javascript assets
      *
-     * @param bool|string $handle
-     * @param string $src              Asset source
+     * @param bool|string  $handle
+     * @param string       $src        Asset source
      * @param array|string $dependency Dependencies
-     * @param bool $footer             Whether to show in header or footer
+     * @param bool         $footer     Whether to show in header or footer
      *
      * @return AssetElementInterface Setting returns asset array, getting returns asset HTML
      */
@@ -31,9 +30,9 @@ trait Scripts
     }
 
     /**
-     * @param string $filename [default: js/app.js]
+     * @param string      $filename   [default: js/app.js]
      * @param null|string $dependency
-     * @param bool $footer
+     * @param bool        $footer
      *
      * @return $this
      */

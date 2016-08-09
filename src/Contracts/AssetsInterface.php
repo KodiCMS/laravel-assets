@@ -150,10 +150,11 @@ interface AssetsInterface extends Renderable
 
     /**
      * @param string|array $key
-     * @param mixed $value
+     * @param mixed        $value
+     *
+     * @throws \Exception
      *
      * @return $this
-     * @throws \Exception
      */
     public function putVars($key, $value = null);
 

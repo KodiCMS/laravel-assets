@@ -7,7 +7,6 @@ use KodiCMS\Assets\Css;
 
 trait Styles
 {
-
     /**
      * @var AssetElementInterface[] CSS assets
      */
@@ -18,17 +17,17 @@ trait Styles
      *
      * Gets or sets CSS assets
      *
-     * @param string $handle           Asset name.
-     * @param string $src              Asset source
+     * @param string       $handle     Asset name.
+     * @param string       $src        Asset source
      * @param array|string $dependency Dependencies
-     * @param array $attributes        Attributes for the <link /> element
+     * @param array        $attributes Attributes for the <link /> element
      *
      * @return AssetElementInterface Setting returns asset array, getting returns asset HTML
      */
     public function addCss($handle = null, $src = null, $dependency = null, array $attributes = [])
     {
         // Set default media attribute
-        if (! isset($attributes['media'])) {
+        if (!isset($attributes['media'])) {
             $attributes['media'] = 'all';
         }
 
@@ -36,9 +35,9 @@ trait Styles
     }
 
     /**
-     * @param string $filename [default: css/all.css]
+     * @param string      $filename   [default: css/all.css]
      * @param null|string $dependency
-     * @param array|null $attributes
+     * @param array|null  $attributes
      *
      * @return $this
      */
