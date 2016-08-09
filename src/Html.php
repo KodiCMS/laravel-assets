@@ -7,6 +7,16 @@ use Illuminate\Support\HtmlString;
 class Html
 {
     /**
+     * @param string $script
+     *
+     * @return HtmlString
+     */
+    public function vars($script)
+    {
+        return $this->toHtmlString('<script>'.$script.'</script>');
+    }
+
+    /**
      * Generate a link to a JavaScript file.
      *
      * @param string $url

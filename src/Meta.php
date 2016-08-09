@@ -244,7 +244,7 @@ class Meta implements MetaInterface
 
         $return = call_user_func_array([$this->assets, $method], $parameters);
 
-        if (strpos(strtolower($method), 'get') === 0) {
+        if (strpos(strtolower($method), 'get') === 0 || strpos(strtolower($method), 'render') === 0) {
             return $return;
         }
 

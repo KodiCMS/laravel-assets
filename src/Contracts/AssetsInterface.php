@@ -56,7 +56,7 @@ interface AssetsInterface extends Renderable
      *
      * @return string Asset HTML
      */
-    public function getCssList();
+    public function renderStyles();
 
     /**
      * Remove a CSS asset, or all.
@@ -97,7 +97,7 @@ interface AssetsInterface extends Renderable
      *
      * @return string Asset HTML
      */
-    public function getJsList($footer = false);
+    public function renderScripts($footer = false);
 
     /**
      * Remove a javascript asset, or all.
@@ -136,7 +136,7 @@ interface AssetsInterface extends Renderable
      *
      * @return string Assets content
      */
-    public function allGroup($group);
+    public function renderGroup($group);
 
     /**
      * Remove a group asset, all of a groups assets, or all group assets.
@@ -147,6 +147,27 @@ interface AssetsInterface extends Renderable
      * @return mixed Empty array or void
      */
     public function removeGroup($group = null, $handle = null);
+
+    /**
+     * @param string|array $key
+     * @param mixed $value
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    public function putVars($key, $value = null);
+
+    /**
+     * Remove a javascript vars.
+     *
+     * @return mixed Empty array or void
+     */
+    public function removeVars();
+
+    /**
+     * @return string
+     */
+    public function renderVars();
 
     /**
      * @return $this
