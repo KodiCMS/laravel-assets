@@ -28,10 +28,10 @@ trait Packages
         $names = is_array($names) ? $names : func_get_args();
 
         foreach ($names as $name) {
-            if (! array_key_exists($name, $this->packages)) {
+            if (!array_key_exists($name, $this->packages)) {
 
                 /** @var PackageInterface $package */
-                if (! is_null($package = $this->manager->load($name))) {
+                if (!is_null($package = $this->manager->load($name))) {
                     $this->packages[$name] = $package;
 
                     if ($package->hasDependencies()) {

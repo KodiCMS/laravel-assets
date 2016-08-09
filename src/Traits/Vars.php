@@ -10,7 +10,6 @@ use stdClass;
 
 trait Vars
 {
-
     /**
      * @var array
      */
@@ -25,16 +24,17 @@ trait Vars
 
     /**
      * @param string|array $key
-     * @param mixed $value
+     * @param mixed        $value
+     *
+     * @throws Exception
      *
      * @return $this
-     * @throws Exception
      */
     public function putVars($key, $value = null)
     {
         if (is_array($key)) {
             $variables = $key;
-        } elseif (! is_null($value)) {
+        } elseif (!is_null($value)) {
             $variables = [$key => $value];
         } else {
             throw new Exception('Try Assets::putVars(["foo" => "bar"]');
@@ -69,7 +69,7 @@ trait Vars
      * Translate the array of PHP vars to
      * the expected JavaScript syntax.
      *
-     * @param  array $vars
+     * @param array $vars
      *
      * @return array
      */
@@ -97,8 +97,8 @@ trait Vars
     /**
      * Translate a single PHP var to JS.
      *
-     * @param  string $key
-     * @param  string $value
+     * @param string $key
+     * @param string $value
      *
      * @return string
      */
@@ -110,9 +110,10 @@ trait Vars
     /**
      * Format a value for JavaScript.
      *
-     * @param  string $value
+     * @param string $value
      *
      * @throws \Exception
+     *
      * @return string
      */
     protected function optimizeValueForJavaScript($value)
@@ -132,7 +133,7 @@ trait Vars
         foreach ($types as $transformer) {
             $js = $this->{"transform{$transformer}"}($value);
 
-            if (! is_null($js)) {
+            if (!is_null($js)) {
                 return $js;
             }
         }
@@ -141,14 +142,14 @@ trait Vars
     /**
      * Transform a string.
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return string
      */
     protected function transformString($value)
     {
         if (is_string($value)) {
-            $value = str_replace(["\\", "'"], ["\\\\", "\'"], $value);
+            $value = str_replace(['\\', "'"], ['\\\\', "\'"], $value);
 
             return "'{$value}'";
         }
@@ -157,7 +158,7 @@ trait Vars
     /**
      * Transform an array.
      *
-     * @param  array $value
+     * @param array $value
      *
      * @return string
      */
@@ -171,7 +172,7 @@ trait Vars
     /**
      * Transform a numeric value.
      *
-     * @param  mixed $value
+     * @param mixed $value
      *
      * @return mixed
      */
@@ -185,7 +186,7 @@ trait Vars
     /**
      * Transform a boolean.
      *
-     * @param  boolean $value
+     * @param bool $value
      *
      * @return string
      */
@@ -197,14 +198,15 @@ trait Vars
     }
 
     /**
-     * @param  object $value
+     * @param object $value
+     *
+     * @throws Exception
      *
      * @return string
-     * @throws Exception
      */
     protected function transformObject($value)
     {
-        if (! is_object($value)) {
+        if (!is_object($value)) {
             return;
         }
 
@@ -220,7 +222,7 @@ trait Vars
 
         // Otherwise, if the object doesn't even have a
         // __toString() method, we can't proceed.
-        if (! method_exists($value, '__toString')) {
+        if (!method_exists($value, '__toString')) {
             throw new Exception('Cannot transform this object to JavaScript.');
         }
 
@@ -228,9 +230,9 @@ trait Vars
     }
 
     /**
-     * Transform "null."
+     * Transform "null.".
      *
-     * @param  mixed $value
+     * @param mixed $value
      *
      * @return string
      */

@@ -4,7 +4,6 @@ namespace KodiCMS\Assets\Traits;
 
 trait Groups
 {
-
     /**
      * @var array Other asset groups (meta data, links, etc...)
      */
@@ -71,7 +70,7 @@ trait Groups
      */
     public function renderGroup($group)
     {
-        if (! isset($this->groups[$group])) {
+        if (!isset($this->groups[$group])) {
             return PHP_EOL;
         }
 
