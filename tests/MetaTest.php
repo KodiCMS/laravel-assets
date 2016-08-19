@@ -50,8 +50,8 @@ class MetaTest extends PHPUnit_Framework_TestCase
         $this->meta->setMetaData($metaData);
 
         static::assertEquals('<title>meta_title</title>', $this->meta->getGroup('meta', 'title'));
-        static::assertEquals('<meta name="meta_description" content="meta_description" />', $this->meta->getGroup('meta', 'meta_description'));
-        static::assertEquals('<meta name="meta_keywords" content="tag1, tag2" />', $this->meta->getGroup('meta', 'meta_keywords'));
+        static::assertEquals('<meta name="description" content="meta_description" />', $this->meta->getGroup('meta', 'description'));
+        static::assertEquals('<meta name="keywords" content="tag1, tag2" />', $this->meta->getGroup('meta', 'keywords'));
         static::assertEquals('<meta name="robots" content="meta_robots" />', $this->meta->getGroup('meta', 'robots'));
     }
 
@@ -96,9 +96,12 @@ class MetaTest extends PHPUnit_Framework_TestCase
     public function testSetFavicon()
     {
         $this->meta->setFavicon('site.com');
-        static::assertEquals('<link rel="shortcut icon" href="site.com" type="image/x-icon" />', $this->meta->getGroup('meta', 'icon'));
+        static::assertEquals('<link rel="shortcut icon" href="site.com" type="image/x-icon" />', $this->meta->getGroup('meta', 'favicon'));
 
         $this->meta->setFavicon('site.com', 'custom rel');
-        static::assertEquals('<link rel="custom rel" href="site.com" type="image/x-icon" />', $this->meta->getGroup('meta', 'icon'));
+        static::assertEquals('<link rel="custom rel" href="site.com" type="image/x-icon" />', $this->meta->getGroup('meta', 'favicon'));
+
+        $this->meta->setFavicon('site.com', 'custom rel', 'custom type');
+        static::assertEquals('<link rel="custom rel" href="site.com" type="custom type" />', $this->meta->getGroup('meta', 'favicon'));
     }
 }
