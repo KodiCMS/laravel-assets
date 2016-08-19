@@ -185,9 +185,9 @@ class Meta implements MetaInterface
     public function setFavicon($url, $rel = 'shortcut icon', $type = 'image/x-icon')
     {
         return $this->addTagToGroup('favicon', '<link rel=":rel" href=":url" type=":type" />', [
-            ':url' => e($url),
-            ':rel' => e($rel),
-            ':type' => e($type)
+            ':url'  => e($url),
+            ':rel'  => e($rel),
+            ':type' => e($type),
         ]);
     }
 

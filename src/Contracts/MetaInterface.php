@@ -71,9 +71,9 @@ interface MetaInterface extends Renderable
     public function setFavicon($url, $rel = 'shortcut icon', $type = 'image/x-icon');
 
     /**
-     * @param string      $handle
-     * @param string      $content
-     * @param array       $params
+     * @param string            $handle
+     * @param string            $content
+     * @param array             $params
      * @param null|string|array $dependency
      *
      * @return $this
