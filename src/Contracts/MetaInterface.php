@@ -64,20 +64,21 @@ interface MetaInterface extends Renderable
     /**
      * @param string $url
      * @param string $rel
+     * @param string $type
      *
      * @return $this
      */
-    public function setFavicon($url, $rel = 'shortcut icon');
+    public function setFavicon($url, $rel = 'shortcut icon', $type = 'image/x-icon');
 
     /**
      * @param string      $handle
      * @param string      $content
      * @param array       $params
-     * @param null|string $dependency
+     * @param null|string|array $dependency
      *
      * @return $this
      */
-    public function addToGroup($handle, $content, $params = [], $dependency = null);
+    public function addTagToGroup($handle, $content, $params = [], $dependency = null);
 
     /**
      * @param string|null $handle

@@ -11,12 +11,14 @@ use KodiCMS\Assets\Contracts\SocialMediaTagsInterface;
 /**
  * @method $this loadPackage(string|array $names)
  * @method $this removeJs(string $handle = null)
- * @method $this addJs(string $handle, string $src, string $dependency = null, bool $footer = false)
- * @method $this addJsElixir(string $filename = 'js/app.js', string $dependency = null, bool $footer = false)
+ * @method $this addJs(string $handle, string $src, string|array $dependency = null, bool $footer = false)
+ * @method $this addJsElixir(string $filename = 'js/app.js', string|array $dependency = null, bool $footer = false)
  * @method $this removeCss(string $handle = null)
- * @method $this addCss(string $handle, string $src, string $dependency = null, array $attributes = [])
- * @method $this addCssElixir(string $filename = 'css/all.css', string $dependency = null, array $attributes = [])
+ * @method $this addCss(string $handle, string $src, string|array $dependency = null, array $attributes = [])
+ * @method $this addCssElixir(string $filename = 'css/all.css', string|array $dependency = null, array $attributes = [])
  * @method $this getGroup(string $group, string $handle)
+ * @method $this putVars(string $key, mixed $value = null)
+ * @method $this removeVars()
  */
 class Meta implements MetaInterface
 {
@@ -64,7 +66,7 @@ class Meta implements MetaInterface
      */
     public function setTitle($title)
     {
-        return $this->addToGroup('title', '<title>:title</title>', [
+        return $this->addTagToGroup('title', '<title>:title</title>', [
             ':title' => e($title),
         ]);
     }
@@ -76,7 +78,7 @@ class Meta implements MetaInterface
      */
     public function setMetaDescription($description)
     {
-        return $this->addMeta(['name' => 'meta_description', 'content' => e($description)]);
+        return $this->addMeta(['name' => 'description', 'content' => e($description)]);
     }
 
     /**
@@ -90,7 +92,7 @@ class Meta implements MetaInterface
             $keywords = implode(', ', $keywords);
         }
 
-        return $this->addMeta(['name' => 'meta_keywords', 'content' => e($keywords)]);
+        return $this->addMeta(['name' => 'keywords', 'content' => e($keywords)]);
     }
 
     /**
@@ -168,7 +170,7 @@ class Meta implements MetaInterface
             }
         }
 
-        return $this->addToGroup($group, $meta);
+        return $this->addTagToGroup($group, $meta);
     }
 
     /**
@@ -176,14 +178,16 @@ class Meta implements MetaInterface
      *
      * @param string $url
      * @param string $rel
+     * @param string $type
      *
      * @return $this
      */
-    public function setFavicon($url, $rel = 'shortcut icon')
+    public function setFavicon($url, $rel = 'shortcut icon', $type = 'image/x-icon')
     {
-        return $this->addToGroup('icon', '<link rel=":rel" href=":url" type="image/x-icon" />', [
+        return $this->addTagToGroup('favicon', '<link rel=":rel" href=":url" type=":type" />', [
             ':url' => e($url),
             ':rel' => e($rel),
+            ':type' => e($type)
         ]);
     }
 
@@ -195,7 +199,7 @@ class Meta implements MetaInterface
      *
      * @return $this
      */
-    public function addToGroup($handle, $content, $params = [], $dependency = null)
+    public function addTagToGroup($handle, $content, $params = [], $dependency = null)
     {
         $this->assets->group(static::META_GROUP_NAME, $handle, strtr($content, $params), $dependency);
 
@@ -219,7 +223,7 @@ class Meta implements MetaInterface
      */
     public function render()
     {
-        return $this->assets->allGroup('meta').PHP_EOL.$this->assets->render();
+        return $this->assets->allGroup(static::META_GROUP_NAME).PHP_EOL.$this->assets->render();
     }
 
     /**
