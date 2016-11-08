@@ -51,10 +51,12 @@ class AssetsServiceProvider extends ServiceProvider
     public static function compiles()
     {
         return [
+            base_path('vendor\kodicms\laravel-assets\src\Contracts\MetaInterface.php'),
             base_path('vendor\kodicms\laravel-assets\src\Contracts\AssetsInterface.php'),
             base_path('vendor\kodicms\laravel-assets\src\Contracts\PackageManagerInterface.php'),
             base_path('vendor\kodicms\laravel-assets\src\Contracts\AssetElementInterface.php'),
             base_path('vendor\kodicms\laravel-assets\src\Contracts\PackageInterface.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Contracts\SocialMediaTagsInterface.php'),
             base_path('vendor\kodicms\laravel-assets\src\Traits\Groups.php'),
             base_path('vendor\kodicms\laravel-assets\src\Traits\Vars.php'),
             base_path('vendor\kodicms\laravel-assets\src\Traits\Packages.php'),
@@ -63,9 +65,12 @@ class AssetsServiceProvider extends ServiceProvider
             base_path('vendor\kodicms\laravel-assets\src\AssetElement.php'),
             base_path('vendor\kodicms\laravel-assets\src\Css.php'),
             base_path('vendor\kodicms\laravel-assets\src\Javascript.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Html.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Meta.php'),
             base_path('vendor\kodicms\laravel-assets\src\Package.php'),
             base_path('vendor\kodicms\laravel-assets\src\PackageManager.php'),
             base_path('vendor\kodicms\laravel-assets\src\Assets.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Facades\Meta.php'),
         ];
     }
 }
