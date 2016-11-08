@@ -42,4 +42,30 @@ class AssetsServiceProvider extends ServiceProvider
 
         $this->commands(PackagesListCommand::class);
     }
+
+    /**
+     * Get a list of files that should be compiled for the package.
+     *
+     * @return array
+     */
+    public static function compiles()
+    {
+        return [
+            base_path('vendor\kodicms\laravel-assets\src\Contracts\AssetsInterface.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Contracts\PackageManagerInterface.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Contracts\AssetElementInterface.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Contracts\PackageInterface.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Traits\Groups.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Traits\Vars.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Traits\Packages.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Traits\Styles.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Traits\Scripts.php'),
+            base_path('vendor\kodicms\laravel-assets\src\AssetElement.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Css.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Javascript.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Package.php'),
+            base_path('vendor\kodicms\laravel-assets\src\PackageManager.php'),
+            base_path('vendor\kodicms\laravel-assets\src\Assets.php'),
+        ];
+    }
 }
