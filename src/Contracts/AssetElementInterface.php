@@ -31,9 +31,16 @@ interface AssetElementInterface extends Renderable
     /**
      * @param string $dependency
      *
-     * @return array
+     * @return void
      */
     public function removeDependency($dependency);
+
+    /**
+     * @param AssetElementInterface $element
+     *
+     * @return void
+     */
+    public function resolveDependency(AssetElementInterface $element);
 
     /**
      * @return array

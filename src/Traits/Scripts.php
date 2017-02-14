@@ -106,21 +106,23 @@ trait Scripts
             return PHP_EOL;
         }
 
-        /** @var JavaScript[] $assets */
-        $assets = [];
+        /** @var JavaScript[] $filteredScripts */
+        $filteredScripts = [];
 
-        foreach ($this->scripts as $javaScript) {
-            if ($javaScript->isFooter() === $footer) {
-                $assets[$javaScript->getHandle()] = $javaScript;
+        foreach ($this->scripts as $file) {
+            if ($file->isFooter() === $footer) {
+                $filteredScripts[$file->getHandle()] = $file;
             }
         }
 
-        if (empty($assets)) {
+        if (empty($filteredScripts)) {
             return false;
         }
 
-        foreach ($this->sort($assets) as $javaScript) {
-            $sorted[] = $this->getJs($javaScript->getHandle());
+        $sorted = [];
+
+        foreach ($this->sort($filteredScripts, $this->scripts) as $file) {
+            $sorted[] = $file;
         }
 
         return implode(PHP_EOL, $sorted);

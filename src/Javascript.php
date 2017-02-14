@@ -2,6 +2,8 @@
 
 namespace KodiCMS\Assets;
 
+use KodiCMS\Assets\Contracts\AssetElementInterface;
+
 class Javascript extends AssetElement
 {
     /**
@@ -20,6 +22,20 @@ class Javascript extends AssetElement
     {
         parent::__construct($handle, $src, $dependency, $attributes);
         $this->setFooter($footer);
+    }
+
+    /**
+     * @param AssetElementInterface $element
+     *
+     * @return void
+     */
+    public function resolveDependency(AssetElementInterface $element)
+    {
+        if ($element->isFooter()) {
+            $this->setFooter(true);
+        }
+
+        parent::resolveDependency($element);
     }
 
     /**

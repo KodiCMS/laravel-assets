@@ -63,10 +63,11 @@ class Assets implements AssetsInterface
      * Sorts assets based on dependencies.
      *
      * @param AssetElementInterface[] $assets Array of assets
+     * @param AssetElementInterface[] $all
      *
      * @return AssetElementInterface[] Sorted array of assets
      */
-    protected function sort($assets)
+    protected function sort(array $assets, array $all)
     {
         $original = $assets;
         $sorted = [];
@@ -82,7 +83,14 @@ class Assets implements AssetsInterface
                         // Remove dependency if doesn't exist, if its dependent on itself,
                         // or if the dependent is dependent on it
                         if (!isset($original[$dep]) or $dep === $handle or (isset($assets[$dep]) and $assets[$dep]->hasDependency($handle))) {
-                            $assets[$handle]->removeDependency($dep);
+
+                            if (isset($all[$dep])) {
+                                $assets[$handle]->resolveDependency($all[$dep]);
+                                unset($assets[$handle]);
+                            } else {
+                                $assets[$handle]->removeDependency($dep);
+                            }
+
                             continue;
                         }
 

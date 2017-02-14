@@ -41,7 +41,7 @@ abstract class AssetElement implements AssetElementInterface
 
         $this->handle = $handle;
         $this->src = $src;
-        $this->dependency = array_unique($dependency);
+        $this->dependency = array_unique(array_filter($dependency));
         $this->attributes = $attributes;
     }
 
@@ -84,9 +84,19 @@ abstract class AssetElement implements AssetElementInterface
     }
 
     /**
+     * @param AssetElementInterface $element
+     *
+     * @return void
+     */
+    public function resolveDependency(AssetElementInterface $element)
+    {
+        $this->removeDependency($element->getHandle());
+    }
+
+    /**
      * @param string $dependency
      *
-     * @return array
+     * @return void
      */
     public function removeDependency($dependency)
     {

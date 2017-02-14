@@ -87,13 +87,13 @@ trait Styles
             return PHP_EOL;
         }
 
-        $assets = [];
+        $styles = [];
 
-        foreach ($this->sort($this->styles) as $handle => $data) {
-            $assets[] = $this->getCss($handle);
+        foreach ($this->sort($this->styles, $this->styles) as $handle => $style) {
+            $styles[] = $style;
         }
 
-        return implode(PHP_EOL, $assets);
+        return implode(PHP_EOL, $styles);
     }
 
     /**
