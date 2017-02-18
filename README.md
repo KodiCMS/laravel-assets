@@ -12,7 +12,7 @@
 {
   "require": {
     ...
-    "kodicms/laravel-assets": "~2.0"
+    "kodicms/laravel-assets": "^0.3"
     ...
   }
 }
