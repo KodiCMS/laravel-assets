@@ -47,6 +47,18 @@ trait Styles
     }
 
     /**
+     * @param string      $filename   [default: css/all.css]
+     * @param null|string $dependency
+     * @param array|null  $attributes
+     *
+     * @return $this
+     */
+    public function addCssMix($filename = 'css/all.css', $dependency = null, array $attributes = [])
+    {
+        return $this->addCss($filename, mix($filename), $dependency, $attributes);
+    }
+
+    /**
      * Remove a CSS asset, or all.
      *
      * @param string|null $handle Asset name, or `NULL` to remove all

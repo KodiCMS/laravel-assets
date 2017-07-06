@@ -42,6 +42,18 @@ trait Scripts
     }
 
     /**
+     * @param string      $filename   [default: js/app.js]
+     * @param null|string $dependency
+     * @param bool        $footer
+     *
+     * @return $this
+     */
+    public function addJsMix($filename = 'js/app.js', $dependency = null, $footer = false)
+    {
+        return $this->addJs($filename, mix($filename), $dependency, $footer);
+    }
+        
+    /**
      * Get a single javascript asset.
      *
      * @param string $handle Asset name
