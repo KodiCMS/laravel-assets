@@ -1,4 +1,6 @@
-# Laravel Assets
+# !!! This project is not maintained anymore. Please use this package https://github.com/butschster/LaravelMetaTags !!!
+
+### Laravel Assets
 [![Build Status](https://travis-ci.org/KodiCMS/laravel-assets.svg?branch=master)](https://travis-ci.org/KodiCMS/laravel-assets)
 [![StyleCI](https://styleci.io/repos/45453063/shield)](https://styleci.io/repos/45453063)
 ## Установка
