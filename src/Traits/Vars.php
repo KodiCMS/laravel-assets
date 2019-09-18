@@ -4,6 +4,7 @@ namespace KodiCMS\Assets\Traits;
 
 use Exception;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Str;
 use JsonSerializable;
 use KodiCMS\Assets\Html;
 use stdClass;
@@ -149,7 +150,7 @@ trait Vars
     protected function transformString($value)
     {
         if (is_string($value)) {
-            $value = str_replace(['\\', "'"], ['\\\\', "\'"], $value);
+            $value = Str::replace(['\\', "'"], ['\\\\', "\'"], $value);
 
             return "'{$value}'";
         }
