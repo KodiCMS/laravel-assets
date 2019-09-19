@@ -2,6 +2,7 @@
 
 namespace KodiCMS\Assets\Traits;
 
+use Illuminate\Support\Arr;
 use KodiCMS\Assets\Contracts\AssetElementInterface;
 use KodiCMS\Assets\Javascript;
 
@@ -52,7 +53,7 @@ trait Scripts
     {
         return $this->addJs($filename, mix($filename), $dependency, $footer);
     }
-        
+
     /**
      * Get a single javascript asset.
      *
@@ -62,7 +63,7 @@ trait Scripts
      */
     public function getJs($handle)
     {
-        return (string) array_get($this->scripts, $handle);
+        return (string) Arr::get($this->scripts, $handle);
     }
 
     /**

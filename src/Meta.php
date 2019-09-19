@@ -3,6 +3,7 @@
 namespace KodiCMS\Assets;
 
 use BadMethodCallException;
+use Illuminate\Support\Str;
 use KodiCMS\Assets\Contracts\AssetsInterface;
 use KodiCMS\Assets\Contracts\MetaDataInterface;
 use KodiCMS\Assets\Contracts\MetaInterface;
@@ -166,7 +167,7 @@ class Meta implements MetaInterface
             if (isset($attributes['name'])) {
                 $group = $attributes['name'];
             } else {
-                $group = str_random();
+                $group = Str::random();
             }
         }
 

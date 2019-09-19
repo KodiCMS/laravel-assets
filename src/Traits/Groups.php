@@ -2,6 +2,8 @@
 
 namespace KodiCMS\Assets\Traits;
 
+use Illuminate\Support\Arr;
+
 trait Groups
 {
     /**
@@ -35,7 +37,7 @@ trait Groups
      */
     public function getGroup($group, $handle)
     {
-        return array_get($this->groups, $group.'.'.$handle);
+        return Arr::get($this->groups, $group.'.'.$handle);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace KodiCMS\Assets\Traits;
 
+use Illuminate\Support\Arr;
 use KodiCMS\Assets\Contracts\AssetElementInterface;
 use KodiCMS\Assets\Css;
 
@@ -83,7 +84,7 @@ trait Styles
      */
     public function getCss($handle)
     {
-        return (string) array_get($this->styles, $handle);
+        return (string) Arr::get($this->styles, $handle);
     }
 
     /**
