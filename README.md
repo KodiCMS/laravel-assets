@@ -14,7 +14,7 @@
 {
   "require": {
     ...
-    "kodicms/laravel-assets": "^0.3"
+    "kodicms/laravel-assets": "~0.6"
     ...
   }
 }
@@ -40,7 +40,7 @@
 
 ### Формирование пакетов
 
-```
+```php
 PackageManager::add('jquery')
 	->js(null, 'https://code.jquery.com/jquery-2.1.4.min.js');
 
@@ -59,7 +59,7 @@ PackageManager::add('custom')
 
 Формировать мета данные для вывода можно не только в шаблоне, но и непосредственно коде приложения
 
-```
+```php
 use KodiCMS\Assets\Contracts\SocialMediaTagsInterface;
 
 class Article extends Model implements SocialMediaTagsInterface
@@ -91,7 +91,7 @@ class ArticleController extends Controller
 ### Вывод
 Для вывода css и js в шаблон сайта используется класс Meta.
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
